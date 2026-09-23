@@ -127,6 +127,7 @@ def test_raw_numbers_flagged(line: str) -> None:
         "The p95 latency and the x_1 coordinate.",
         "Mean was @R0@ and median @R1@.",
         "Flight of @R0@ over 10th-order effects.",
+        "Mean @R0@ with a 95% bootstrap confidence interval; the 95 % CI is wide.",
     ],
 )
 def test_raw_numbers_allowed(line: str) -> None:

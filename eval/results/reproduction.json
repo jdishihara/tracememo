@@ -1,0 +1,996 @@
+{
+  "seed": 0,
+  "rows": [
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.n_samples",
+      "computed": 585.0,
+      "truth": 585.0,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 5.85e-07,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.mean_cm",
+      "computed": 7.290018668815369,
+      "truth": 7.290018668815369,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 7.29001866881537e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.median_cm",
+      "computed": 4.587045110738561,
+      "truth": 4.587045110738561,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 4.5870451107385616e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.p95_cm",
+      "computed": 25.57668907718357,
+      "truth": 25.57668907718357,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 2.5576689077183573e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.max_cm",
+      "computed": 54.394384996274326,
+      "truth": 54.394384996274326,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 5.439438499627433e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.rmse_cm",
+      "computed": 11.959317688905184,
+      "truth": 11.959317688905184,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1.1959317688905185e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.pct_under_10cm",
+      "computed": 87.52136752136752,
+      "truth": 87.52136752136752,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 8.752136752136753e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.mean_3d_cm",
+      "computed": 8.513638500243324,
+      "truth": 8.513638500243324,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 8.513638500243325e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.median_3d_cm",
+      "computed": 6.006444545715542,
+      "truth": 6.006444545715542,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 6.006444545715542e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.p95_3d_cm",
+      "computed": 26.116838946889033,
+      "truth": 26.116838946889033,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 2.6116838946889036e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.max_3d_cm",
+      "computed": 54.46343223805172,
+      "truth": 54.46343223805172,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 5.446343223805173e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.rmse_3d_cm",
+      "computed": 12.5501447699165,
+      "truth": 12.5501447699165,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1.2550144769916501e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.loc_err.pct_under_10cm_3d",
+      "computed": 83.76068376068376,
+      "truth": 83.76068376068376,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 8.376068376068377e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.trajectory.duration_s",
+      "computed": 119.9,
+      "truth": 119.9,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1.199e-07,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.trajectory.planned_length_m",
+      "computed": 58.97474924738956,
+      "truth": 58.97474924738956,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 5.8974749247389564e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.trajectory.actual_length_m",
+      "computed": 88.70612577680315,
+      "truth": 88.70612577680315,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 8.870612577680316e-08,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.trajectory.max_altitude_m",
+      "computed": 1.647479292551975,
+      "truth": 1.647479292551975,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1.6474792925519752e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.failures.n_dropouts",
+      "computed": 1.0,
+      "truth": 1.0,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.failures.n_jumps",
+      "computed": 1.0,
+      "truth": 1.0,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (normalized tables)",
+      "value_id": "drone.failures.n_drifts",
+      "computed": 1.0,
+      "truth": 1.0,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.n_samples",
+      "computed": 585.0,
+      "truth": 585.0,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 11.700000000000001,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.mean_cm",
+      "computed": 7.287285803781916,
+      "truth": 7.290018668815369,
+      "abs_err": 0.002732865033452825,
+      "rel_err": 0.0003748776453952369,
+      "tolerance": 0.2,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.median_cm",
+      "computed": 4.562186203832815,
+      "truth": 4.587045110738561,
+      "abs_err": 0.024858906905746103,
+      "rel_err": 0.00541937266924841,
+      "tolerance": 0.2,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.p95_cm",
+      "computed": 25.60010339125324,
+      "truth": 25.57668907718357,
+      "abs_err": 0.023414314069668762,
+      "rel_err": 0.0009154552412554517,
+      "tolerance": 0.5115337815436714,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.max_cm",
+      "computed": 54.38715232287379,
+      "truth": 54.394384996274326,
+      "abs_err": 0.007232673400537237,
+      "rel_err": 0.000132967279638011,
+      "tolerance": 1.0878876999254865,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.rmse_cm",
+      "computed": 11.957128722313517,
+      "truth": 11.959317688905184,
+      "abs_err": 0.0021889665916674517,
+      "rel_err": 0.0001830344045211028,
+      "tolerance": 0.23918635377810368,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.pct_under_10cm",
+      "computed": 87.35042735042735,
+      "truth": 87.52136752136752,
+      "abs_err": 0.17094017094017033,
+      "rel_err": 0.001953124999999993,
+      "tolerance": 1.7504273504273504,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.mean_3d_cm",
+      "computed": 8.511675496422791,
+      "truth": 8.513638500243324,
+      "abs_err": 0.00196300382053316,
+      "rel_err": 0.00023057166691738866,
+      "tolerance": 0.2,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.median_3d_cm",
+      "computed": 6.0307357512031485,
+      "truth": 6.006444545715542,
+      "abs_err": 0.024291205487606327,
+      "rel_err": 0.004044190419594149,
+      "tolerance": 0.2,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.p95_3d_cm",
+      "computed": 26.07838564821476,
+      "truth": 26.116838946889033,
+      "abs_err": 0.038453298674273384,
+      "rel_err": 0.0014723565417879118,
+      "tolerance": 0.5223367789377806,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.max_3d_cm",
+      "computed": 54.454841602912865,
+      "truth": 54.46343223805172,
+      "abs_err": 0.008590635138858715,
+      "rel_err": 0.0001577321660763189,
+      "tolerance": 1.0892686447610345,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.rmse_3d_cm",
+      "computed": 12.54814384361627,
+      "truth": 12.5501447699165,
+      "abs_err": 0.002000926300230077,
+      "rel_err": 0.00015943451943490128,
+      "tolerance": 0.25100289539833,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.loc_err.pct_under_10cm_3d",
+      "computed": 83.76068376068376,
+      "truth": 83.76068376068376,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1.6752136752136753,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.trajectory.duration_s",
+      "computed": 119.9,
+      "truth": 119.9,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 2.398,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.trajectory.planned_length_m",
+      "computed": 58.974749290084446,
+      "truth": 58.97474924738956,
+      "abs_err": 4.269488584895953e-08,
+      "rel_err": 7.239519691700828e-10,
+      "tolerance": 1.1794949849477911,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.trajectory.actual_length_m",
+      "computed": 88.70613022763038,
+      "truth": 88.70612577680315,
+      "abs_err": 4.450827233881682e-06,
+      "rel_err": 5.017497038570457e-08,
+      "tolerance": 1.774122515536063,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.trajectory.max_altitude_m",
+      "computed": 1.6474792957305908,
+      "truth": 1.647479292551975,
+      "abs_err": 3.1786158150026722e-09,
+      "rel_err": 1.92938134601919e-09,
+      "tolerance": 0.2,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.failures.n_dropouts",
+      "computed": 1.0,
+      "truth": 1.0,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.failures.n_jumps",
+      "computed": 1.0,
+      "truth": 1.0,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "value_id": "drone.failures.n_drifts",
+      "computed": 1.0,
+      "truth": 1.0,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.e2e_median_ms",
+      "computed": 2880.719,
+      "truth": 2880.719,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.002880719,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.e2e_p95_ms",
+      "computed": 4058.73125,
+      "truth": 4058.73125,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.004058731249999999,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.embed_query.median_ms",
+      "computed": 39.242,
+      "truth": 39.2420412110298,
+      "abs_err": 4.121102980292335e-05,
+      "rel_err": 1.050175488611946e-06,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.embed_query.p95_ms",
+      "computed": 57.22709999999999,
+      "truth": 57.22734160138375,
+      "abs_err": 0.00024160138375606266,
+      "rel_err": 4.221782403224908e-06,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.retrieve.median_ms",
+      "computed": 345.6345,
+      "truth": 345.63473232327385,
+      "abs_err": 0.00023232327384903328,
+      "rel_err": 6.721641435957895e-07,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.retrieve.p95_ms",
+      "computed": 494.79699999999997,
+      "truth": 494.79734699766306,
+      "abs_err": 0.0003469976630867677,
+      "rel_err": 7.012924891216254e-07,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.rerank.median_ms",
+      "computed": 565.1890000000001,
+      "truth": 565.1893286173758,
+      "abs_err": 0.0003286173757715005,
+      "rel_err": 5.814288400939878e-07,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.rerank.p95_ms",
+      "computed": 865.2571499999999,
+      "truth": 865.2569901021085,
+      "abs_err": 0.00015989789142167865,
+      "rel_err": 1.8479815043483114e-07,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.generate.median_ms",
+      "computed": 1848.8415,
+      "truth": 1848.8416199188687,
+      "abs_err": 0.00011991886867690482,
+      "rel_err": 6.486162329154356e-08,
+      "tolerance": 0.0018488416199188686,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v1.generate.p95_ms",
+      "computed": 2939.9147500000004,
+      "truth": 2939.914695827917,
+      "abs_err": 5.417208330982248e-05,
+      "rel_err": 1.8426413319644616e-08,
+      "tolerance": 0.002939914695827917,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.e2e_median_ms",
+      "computed": 2141.7115000000003,
+      "truth": 2141.7115000000003,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0021417115000000003,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.e2e_p95_ms",
+      "computed": 3325.6499499999995,
+      "truth": 3325.6499499999995,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.003325649949999999,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.embed_query.median_ms",
+      "computed": 37.788,
+      "truth": 37.78815061181271,
+      "abs_err": 0.00015061181271391888,
+      "rel_err": 3.98568890711569e-06,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.embed_query.p95_ms",
+      "computed": 59.658699999999996,
+      "truth": 59.658564882300304,
+      "abs_err": 0.00013511769969198895,
+      "rel_err": 2.264849983544879e-06,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.retrieve.median_ms",
+      "computed": 119.35400000000001,
+      "truth": 119.35398747807149,
+      "abs_err": 1.2521928525188741e-05,
+      "rel_err": 1.0491420345289556e-07,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.retrieve.p95_ms",
+      "computed": 168.9405,
+      "truth": 168.94051136670518,
+      "abs_err": 1.1366705194859605e-05,
+      "rel_err": 6.728229424017097e-08,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.rerank.median_ms",
+      "computed": 240.7655,
+      "truth": 240.76551213235047,
+      "abs_err": 1.2132350462934482e-05,
+      "rel_err": 5.039073227508284e-08,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.rerank.p95_ms",
+      "computed": 360.43805,
+      "truth": 360.43854008417776,
+      "abs_err": 0.000490084177783956,
+      "rel_err": 1.3596886106283208e-06,
+      "tolerance": 0.001,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.generate.median_ms",
+      "computed": 1740.9305,
+      "truth": 1740.9306556681468,
+      "abs_err": 0.00015566814681733376,
+      "rel_err": 8.941662685443973e-08,
+      "tolerance": 0.0017409306556681466,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.v2.generate.p95_ms",
+      "computed": 2908.02295,
+      "truth": 2908.0231440257544,
+      "abs_err": 0.00019402575435378822,
+      "rel_err": 6.672084256014086e-08,
+      "tolerance": 0.0029080231440257545,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.latency.reduction_pct",
+      "computed": 25.653578151843327,
+      "truth": 25.653578151843327,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 2.5653578151843325e-05,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.correctness.mean",
+      "computed": 0.6356429240552162,
+      "truth": 0.6356429240552162,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.correctness.ci",
+      "computed": "[0.595, 0.672]",
+      "truth": 0.6356429240552162,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.faithfulness.mean",
+      "computed": 0.7712182783798933,
+      "truth": 0.7712182783798933,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.faithfulness.ci",
+      "computed": "[0.732, 0.808]",
+      "truth": 0.7712182783798933,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.relevance.mean",
+      "computed": 0.7031730725210551,
+      "truth": 0.7031730725210551,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.relevance.ci",
+      "computed": "[0.668, 0.735]",
+      "truth": 0.7031730725210551,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.retrieval_mrr.mean",
+      "computed": 0.5228797525821622,
+      "truth": 0.5228797525821622,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.retrieval_mrr.ci",
+      "computed": "[0.483, 0.561]",
+      "truth": 0.5228797525821622,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.entity_precision.mean",
+      "computed": 0.7286343756902812,
+      "truth": 0.7286343756902812,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.entity_precision.ci",
+      "computed": "[0.690, 0.766]",
+      "truth": 0.7286343756902812,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.entity_recall.mean",
+      "computed": 0.5337493875461645,
+      "truth": 0.5337493875461645,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.baseline.entity_recall.ci",
+      "computed": "[0.488, 0.582]",
+      "truth": 0.5337493875461645,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.correctness.mean",
+      "computed": 0.7272026832468615,
+      "truth": 0.7272026832468615,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.correctness.ci",
+      "computed": "[0.692, 0.764]",
+      "truth": 0.7272026832468615,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.faithfulness.mean",
+      "computed": 0.7808309936644553,
+      "truth": 0.7808309936644553,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.faithfulness.ci",
+      "computed": "[0.740, 0.818]",
+      "truth": 0.7808309936644553,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.relevance.mean",
+      "computed": 0.824675904258083,
+      "truth": 0.824675904258083,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.relevance.ci",
+      "computed": "[0.794, 0.853]",
+      "truth": 0.824675904258083,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.retrieval_mrr.mean",
+      "computed": 0.7628687658996947,
+      "truth": 0.7628687658996947,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.retrieval_mrr.ci",
+      "computed": "[0.732, 0.792]",
+      "truth": 0.7628687658996947,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.entity_precision.mean",
+      "computed": 0.7450077244900586,
+      "truth": 0.7450077244900586,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.entity_precision.ci",
+      "computed": "[0.704, 0.784]",
+      "truth": 0.7450077244900586,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.entity_recall.mean",
+      "computed": 0.6160402351659116,
+      "truth": 0.6160402351659116,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank.entity_recall.ci",
+      "computed": "[0.570, 0.659]",
+      "truth": 0.6160402351659116,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.correctness.mean",
+      "computed": 0.7288830629278248,
+      "truth": 0.7288830629278248,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.correctness.ci",
+      "computed": "[0.691, 0.766]",
+      "truth": 0.7288830629278248,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.faithfulness.mean",
+      "computed": 0.7922241545757279,
+      "truth": 0.7922241545757279,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.faithfulness.ci",
+      "computed": "[0.752, 0.828]",
+      "truth": 0.7922241545757279,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.relevance.mean",
+      "computed": 0.8107699423772925,
+      "truth": 0.8107699423772925,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.relevance.ci",
+      "computed": "[0.772, 0.846]",
+      "truth": 0.8107699423772925,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.retrieval_mrr.mean",
+      "computed": 0.7694848680831623,
+      "truth": 0.7694848680831623,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.retrieval_mrr.ci",
+      "computed": "[0.740, 0.797]",
+      "truth": 0.7694848680831623,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.entity_precision.mean",
+      "computed": 0.757511263666685,
+      "truth": 0.757511263666685,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.entity_precision.ci",
+      "computed": "[0.716, 0.796]",
+      "truth": 0.757511263666685,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.entity_recall.mean",
+      "computed": 0.6372484671715187,
+      "truth": 0.6372484671715187,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 1e-09,
+      "pass": true
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "value_id": "llm.eval.rerank_hyde.entity_recall.ci",
+      "computed": "[0.596, 0.679]",
+      "truth": 0.6372484671715187,
+      "abs_err": 0.0,
+      "rel_err": 0.0,
+      "tolerance": 0.0,
+      "pass": true
+    }
+  ],
+  "summary": [
+    {
+      "pipeline": "drone (normalized tables)",
+      "values": 20,
+      "passed": 20,
+      "max_rel_err": 0.0
+    },
+    {
+      "pipeline": "drone (ArduPilot .bin + Marvelmind CSV)",
+      "values": 20,
+      "passed": 20,
+      "max_rel_err": 0.00541937266924841
+    },
+    {
+      "pipeline": "rag (Langfuse export + eval CSV)",
+      "values": 57,
+      "passed": 57,
+      "max_rel_err": 4.221782403224908e-06
+    }
+  ],
+  "all_pass": true
+}

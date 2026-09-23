@@ -4,8 +4,9 @@ Turn raw experiment output into the analysis, figures, tables and first-draft pr
 technical report, where **every number in the document is linked to the code and data that
 produced it**. See `SPEC.md` for the full design.
 
-Status: milestone 6 of 8 (drone and LLM/RAG examples, real-data adapters, caching, Markdown
-and LaTeX/PDF output, deterministic grounding checker, LLM drafting and claim checks).
+Status: milestone 7 of 8 (drone and LLM/RAG examples, real-data adapters, caching, Markdown
+and LaTeX/PDF output, deterministic grounding checker, LLM drafting and claim checks,
+evaluation scripts).
 
 ## Quick start
 
@@ -65,3 +66,16 @@ contradicts the stored values. It exits non-zero on any error, for use in CI.
 .venv/bin/ruff check . && .venv/bin/ruff format .
 .venv/bin/pytest
 ```
+
+## Evaluation
+
+`python eval/run_all.py` reproduces the numbers in [`eval/RESULTS.md`](eval/RESULTS.md)
+(details in [`eval/README.md`](eval/README.md)). Latest run on synthetic data, seed 0:
+
+| Experiment | Result |
+|---|---|
+| Reproduction: computed values vs. ground truth | 97 of 97 values within tolerance (max relative error 0 for normalized tables, 0.5% via the ArduPilot/Marvelmind adapters, 4e-6 for the RAG example) |
+| Checker recall on injected errors (100 per type) | swapped number 100%, invented statistic 100%, flipped comparison 100%, unknown reference 100%, stale value 100% |
+| Checker false positives on clean drafts | 0 of 100 documents |
+| Staleness demo: perturb the beacon log | `drone.loc_err` and `drone.failures` reran, `drone.trajectory` served from cache; 12 values changed, 13 unchanged |
+| Drafting grounding rate (placeholders vs. free-form) | needs `ANTHROPIC_API_KEY`: `python eval/drafting.py --n 20` |

@@ -1,0 +1,13 @@
+Draft the "{section}" section of the report.
+
+OUTLINE (written by the author; follow its structure and intent):
+{outline}
+
+RESULTS (id | value | unit | description):
+{values}
+
+FIGURES (id | caption):
+{figures}
+
+TABLES (id | caption):
+{tables}

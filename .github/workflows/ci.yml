@@ -28,4 +28,6 @@ jobs:
           test -s examples/drone_memo/build/report.md
           test -s examples/drone_memo/build_raw/report.md
           test -s examples/rag_memo/build/report.md
+      - name: Deterministic evaluations
+        run: python eval/run_all.py --n-docs 10 --skip-drafting
           test -s examples/drone_memo/build/values.tex

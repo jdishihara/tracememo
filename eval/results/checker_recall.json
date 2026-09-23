@@ -1,0 +1,132 @@
+{
+  "seed": 0,
+  "n_docs_per_project": 50,
+  "projects": {
+    "drone_memo": {
+      "per_type": [
+        {
+          "error_type": "swap_number",
+          "expected_check": "raw_number",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        },
+        {
+          "error_type": "invent_statistic",
+          "expected_check": "raw_number",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        },
+        {
+          "error_type": "flip_comparison",
+          "expected_check": "comparison",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        },
+        {
+          "error_type": "unknown_reference",
+          "expected_check": "unknown_reference",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        },
+        {
+          "error_type": "stale_reference",
+          "expected_check": "stale",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        }
+      ],
+      "clean_docs": 50,
+      "false_positive_docs": 0,
+      "false_positive_findings": 0,
+      "false_positive_rate": 0.0
+    },
+    "rag_memo": {
+      "per_type": [
+        {
+          "error_type": "swap_number",
+          "expected_check": "raw_number",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        },
+        {
+          "error_type": "invent_statistic",
+          "expected_check": "raw_number",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        },
+        {
+          "error_type": "flip_comparison",
+          "expected_check": "comparison",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        },
+        {
+          "error_type": "unknown_reference",
+          "expected_check": "unknown_reference",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        },
+        {
+          "error_type": "stale_reference",
+          "expected_check": "stale",
+          "injected": 50,
+          "caught": 50,
+          "recall": 1.0
+        }
+      ],
+      "clean_docs": 50,
+      "false_positive_docs": 0,
+      "false_positive_findings": 0,
+      "false_positive_rate": 0.0
+    }
+  },
+  "combined": [
+    {
+      "error_type": "swap_number",
+      "expected_check": "raw_number",
+      "injected": 100,
+      "caught": 100,
+      "recall": 1.0
+    },
+    {
+      "error_type": "invent_statistic",
+      "expected_check": "raw_number",
+      "injected": 100,
+      "caught": 100,
+      "recall": 1.0
+    },
+    {
+      "error_type": "flip_comparison",
+      "expected_check": "comparison",
+      "injected": 100,
+      "caught": 100,
+      "recall": 1.0
+    },
+    {
+      "error_type": "unknown_reference",
+      "expected_check": "unknown_reference",
+      "injected": 100,
+      "caught": 100,
+      "recall": 1.0
+    },
+    {
+      "error_type": "stale_reference",
+      "expected_check": "stale",
+      "injected": 100,
+      "caught": 100,
+      "recall": 1.0
+    }
+  ],
+  "clean_docs": 100,
+  "false_positive_docs": 0,
+  "false_positive_rate": 0.0
+}

@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -28,6 +29,7 @@ DEFAULT_ALLOW = [
     r"\s*~?\s*\d+(?:\.\d+)*",  # numbered cross references
     r"\[\d+(?:\s*[,–-]\s*\d+)*\]",  # numeric citations [3], [1, 2]
     r"\b\d+(?:st|nd|rd|th)\b",  # ordinals: 95th percentile
+    r"\b\d+\s?%\s+(?:bootstrap\s+)?(?:confidence interval|CI)\b",  # names a statistic, not a result
 ]
 
 
@@ -207,9 +209,23 @@ def _numeric(v: Value) -> float | None:
     return float(v.value) if isinstance(v.value, int | float) else None
 
 
-def check_comparisons(masked: str, refs: list[Ref], manifest: Manifest, file: str) -> list[Finding]:
-    """Verify the direction of simple comparative sentences that reference two values."""
-    findings = []
+@dataclass
+class ComparisonRecord:
+    """One comparative sentence that check 4 examined."""
+
+    line: int
+    text: str
+    ids: list[str]
+    status: str  # "ok" | "wrong" | "unit_mismatch" | "skipped"
+    expected: int = 0
+    actual: int = 0
+
+
+def evaluate_comparisons(
+    masked: str, refs: list[Ref], manifest: Manifest
+) -> list[ComparisonRecord]:
+    """Examine every sentence with exactly two value references and a comparison phrase."""
+    records: list[ComparisonRecord] = []
     pos = 0
     for raw_sentence in SENTENCE_END.split(masked):
         start = masked.find(raw_sentence, pos)
@@ -222,57 +238,68 @@ def check_comparisons(masked: str, refs: list[Ref], manifest: Manifest, file: st
         if m:
             phrase = m.group("phrase").lower()
             expected = -1 if phrase in LT_PHRASES else 1
-            a, b = int(m.group("a")), int(m.group("b"))
-            context = m.group(0)
         else:
             m = _FROM_TO.search(sentence)
             if not m:
                 continue
-            verb = m.group("verb").lower()
-            expected = 1 if verb in DECREASE_VERBS else -1
-            a, b = int(m.group("a")), int(m.group("b"))
-            context = m.group(0)
-        if NEGATION.search(context):
-            continue  # negated claims are left to the LLM claim checker
+            expected = 1 if m.group("verb").lower() in DECREASE_VERBS else -1
+        a, b = int(m.group("a")), int(m.group("b"))
+        line = line_of(masked, start + len(raw_sentence) - len(raw_sentence.lstrip()))
         ra, rb = refs[a], refs[b]
-        if ra.kind != "val" or rb.kind != "val":
+        ids = [ra.id, rb.id]
+        if NEGATION.search(m.group(0)) or ra.kind != "val" or rb.kind != "val":
+            records.append(ComparisonRecord(line, sentence, ids, "skipped"))
             continue
         va, vb = manifest.values.get(ra.id), manifest.values.get(rb.id)
         if va is None or vb is None:
-            continue  # reported by unknown_reference
+            records.append(ComparisonRecord(line, sentence, ids, "skipped"))
+            continue
         xa, xb = _numeric(va), _numeric(vb)
-        line = line_of(masked, start + len(raw_sentence) - len(raw_sentence.lstrip()))
-        text = sentence
         if xa is None or xb is None:
+            records.append(ComparisonRecord(line, sentence, ids, "skipped"))
             continue
         if va.unit != vb.unit:
+            records.append(ComparisonRecord(line, sentence, ids, "unit_mismatch", expected))
+            continue
+        actual = (xa > xb) - (xa < xb)
+        status = "ok" if actual == expected else "wrong"
+        records.append(ComparisonRecord(line, sentence, ids, status, expected, actual))
+    return records
+
+
+def check_comparisons(masked: str, refs: list[Ref], manifest: Manifest, file: str) -> list[Finding]:
+    """Verify the direction of simple comparative sentences that reference two values."""
+    findings = []
+    for rec in evaluate_comparisons(masked, refs, manifest):
+        if rec.status == "unit_mismatch":
+            va, vb = manifest.values[rec.ids[0]], manifest.values[rec.ids[1]]
             findings.append(
                 Finding(
                     check="comparison",
                     severity="warning",
                     file=file,
-                    line=line,
-                    text=text,
-                    ids=[ra.id, rb.id],
+                    line=rec.line,
+                    text=rec.text,
+                    ids=rec.ids,
                     message=(
-                        f"compares {ra.id} ({va.unit}) with {rb.id} ({vb.unit}): different units"
+                        f"compares {rec.ids[0]} ({va.unit}) with {rec.ids[1]} ({vb.unit}): "
+                        "different units"
                     ),
                 )
             )
-            continue
-        actual = (xa > xb) - (xa < xb)
-        if actual != expected:
-            word = "lower" if expected < 0 else "higher"
+        elif rec.status == "wrong":
+            va, vb = manifest.values[rec.ids[0]], manifest.values[rec.ids[1]]
+            word = "lower" if rec.expected < 0 else "higher"
             findings.append(
                 Finding(
                     check="comparison",
                     severity="error",
                     file=file,
-                    line=line,
-                    text=text,
-                    ids=[ra.id, rb.id],
+                    line=rec.line,
+                    text=rec.text,
+                    ids=rec.ids,
                     message=(
-                        f"claims {ra.id} is {word} than {rb.id}, but values are "
+                        f"claims {rec.ids[0]} is {word} than {rec.ids[1]}, but values are "
                         f"{va.formatted()} vs {vb.formatted()}"
                     ),
                 )

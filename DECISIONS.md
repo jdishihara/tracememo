@@ -128,3 +128,15 @@ Choices made where `SPEC.md` was ambiguous or silent. Newest at the bottom.
     placeholder expanded to `[id = value unit]`. Verdicts other than "supported" become
     warnings; the check never changes the exit code. It is off by default (`check.llm_claims`,
     or `tracememo check --llm`) because it costs API calls.
+36. **"95% confidence interval" / "95% CI" is allowlisted** by the raw-number check: it names
+    the statistic, not a result. Thresholds ("under 10 cm") stay flagged because they are
+    parameters that exist as values (`drone.loc_err.threshold_cm`).
+37. **Evaluation code lives in `tracememo/evaluation/`** (importable and unit-tested at small
+    scale); `eval/*.py` are thin scripts that write `eval/results/*.json` and `eval/RESULTS.md`.
+    The checker-recall corpus is generated from the manifests (value statements, true
+    comparisons, figure/table references), skipping values whose descriptions contain digits.
+38. **Drafting evaluation reports three rows**: first attempt with placeholders required, after
+    the one fix round the production drafter uses, and free-form numbers. Free-form numbers
+    are matched to stored values within the precision they were written at; a number that
+    matches nothing is "unsupported", and comparisons between two matched numbers are
+    direction-checked against the stored values.

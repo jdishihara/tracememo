@@ -1,0 +1,72 @@
+{
+  "analyses": [
+    {
+      "analysis": "drone.loc_err",
+      "status": "reran"
+    },
+    {
+      "analysis": "drone.trajectory",
+      "status": "cached"
+    },
+    {
+      "analysis": "drone.failures",
+      "status": "reran"
+    }
+  ],
+  "changed_values": [
+    "drone.loc_err.max_3d_cm",
+    "drone.loc_err.max_cm",
+    "drone.loc_err.mean_3d_cm",
+    "drone.loc_err.mean_cm",
+    "drone.loc_err.median_3d_cm",
+    "drone.loc_err.median_cm",
+    "drone.loc_err.p95_3d_cm",
+    "drone.loc_err.p95_cm",
+    "drone.loc_err.pct_under_10cm",
+    "drone.loc_err.pct_under_10cm_3d",
+    "drone.loc_err.rmse_3d_cm",
+    "drone.loc_err.rmse_cm"
+  ],
+  "unchanged_values": [
+    "drone.failures.availability_pct",
+    "drone.failures.dropout_total_s",
+    "drone.failures.n_drifts",
+    "drone.failures.n_dropouts",
+    "drone.failures.n_events",
+    "drone.failures.n_jumps",
+    "drone.loc_err.n_samples",
+    "drone.loc_err.reference",
+    "drone.loc_err.threshold_cm",
+    "drone.trajectory.actual_length_m",
+    "drone.trajectory.duration_s",
+    "drone.trajectory.max_altitude_m",
+    "drone.trajectory.planned_length_m"
+  ],
+  "figures": [
+    {
+      "figure": "drone.loc_err.error_vs_time",
+      "regenerated": true
+    },
+    {
+      "figure": "drone.loc_err.error_cdf",
+      "regenerated": true
+    },
+    {
+      "figure": "drone.trajectory.top_down",
+      "regenerated": false
+    },
+    {
+      "figure": "drone.trajectory.altitude",
+      "regenerated": false
+    }
+  ],
+  "expected": {
+    "drone.trajectory": "cached",
+    "drone.loc_err": "reran",
+    "drone.failures": "reran"
+  },
+  "as_expected": true,
+  "perturbation": "beacon.parquet x_m += 0.02 m",
+  "n_changed": 12,
+  "n_unchanged": 13
+}
