@@ -174,21 +174,21 @@ PAGE = r"""<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {{
-  --bg:#070a12; --bg2:#0b1020; --panel:rgba(14,20,38,.72); --line:rgba(120,150,255,.16); --line2:rgba(120,150,255,.32);
-  --ink:#e8ecf8; --ink2:#a9b3cf; --muted:#6c7695; --accent:#5ee7ff; --accent2:#8b7bff; --ok:#3ddc97; --warn:#ffb84d;
-  --glow:0 0 18px rgba(94,231,255,.35); --radius:14px; --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --bg:#040705; --bg2:#0a100c; --panel:rgba(8,18,12,.78); --line:rgba(70,220,120,.14); --line2:rgba(70,220,120,.34);
+  --ink:#e6f4ea; --ink2:#a7c4b0; --muted:#628a70; --accent:#3dff7a; --accent2:#b6ff3d; --ok:#3dff7a; --warn:#ffb84d;
+  --glow:0 0 18px rgba(61,255,122,.38); --radius:14px; --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }}
 :root[data-theme="light"] {{
-  --bg:#f5f7fc; --bg2:#ffffff; --panel:rgba(255,255,255,.8); --line:rgba(40,60,120,.14); --line2:rgba(40,60,120,.3);
-  --ink:#0d1330; --ink2:#3c4566; --muted:#7c85a3; --accent:#0a7fd8; --accent2:#6a4cff; --ok:#0f9d6b; --warn:#c77700;
-  --glow:0 0 14px rgba(10,127,216,.25);
+  --bg:#f4faf5; --bg2:#ffffff; --panel:rgba(255,255,255,.82); --line:rgba(20,90,50,.14); --line2:rgba(20,90,50,.3);
+  --ink:#0b1a10; --ink2:#2f4a38; --muted:#6f8a78; --accent:#0d8a3f; --accent2:#4f8a00; --ok:#0d8a3f; --warn:#b26a00;
+  --glow:0 0 14px rgba(13,138,63,.25);
 }}
 * {{ box-sizing:border-box; }}
 html {{ scroll-behavior:smooth; }}
 body {{ margin:0; font-family:var(--sans); color:var(--ink); background:var(--bg); line-height:1.6; min-height:100vh;
   background-image:
-    radial-gradient(1200px 600px at 10% -10%, rgba(139,123,255,.18), transparent 60%),
-    radial-gradient(900px 500px at 100% 0%, rgba(94,231,255,.14), transparent 55%),
+    radial-gradient(1200px 600px at 10% -10%, rgba(61,255,122,.14), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(182,255,61,.10), transparent 55%),
     linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size:auto, auto, 48px 48px, 48px 48px; background-attachment:fixed; }}
 header {{ position:sticky; top:0; z-index:10; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); background:var(--panel);
@@ -199,7 +199,7 @@ header {{ position:sticky; top:0; z-index:10; backdrop-filter:blur(14px); -webki
 .chips {{ display:flex; gap:8px; flex-wrap:wrap; flex-basis:100%; }}
 .chip {{ font-family:var(--mono); font-size:11.5px; padding:4px 10px; border:1px solid var(--line2); border-radius:999px; color:var(--ink2); background:transparent; }}
 .chip i {{ display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:7px; vertical-align:middle; background:var(--ok); box-shadow:0 0 8px var(--ok); }}
-.chip.cached i {{ background:var(--accent2); box-shadow:0 0 8px var(--accent2); }}
+.chip.cached i {{ background:var(--muted); box-shadow:0 0 8px var(--muted); }}
 .chip.warn i {{ background:var(--warn); box-shadow:0 0 8px var(--warn); }}
 button.toggle {{ margin-left:auto; font:inherit; font-size:12px; color:var(--ink2); background:transparent; border:1px solid var(--line2); border-radius:999px; padding:4px 12px; cursor:pointer; }}
 button.toggle:hover {{ border-color:var(--accent); color:var(--accent); }}
@@ -214,7 +214,7 @@ h2::before {{ content:""; position:absolute; top:-1px; left:0; width:56px; heigh
 h3 {{ font-size:16px; font-weight:600; margin:28px 0 8px; color:var(--ink2); }}
 p {{ margin:0 0 14px; }}
 .tm-val {{ font-family:var(--mono); font-size:.93em; color:var(--accent); padding:0 5px; border-radius:6px; cursor:pointer;
-  background:rgba(94,231,255,.07); border:1px solid transparent; transition:all .15s; white-space:nowrap; }}
+  background:rgba(61,255,122,.08); border:1px solid transparent; transition:all .15s; white-space:nowrap; }}
 .tm-val:hover, .tm-val:focus {{ border-color:var(--accent); box-shadow:var(--glow); outline:none; }}
 .tm-val.active {{ background:var(--accent); color:var(--bg); box-shadow:var(--glow); }}
 figure {{ margin:28px 0; padding:16px; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
@@ -226,7 +226,7 @@ table {{ border-collapse:collapse; width:100%; font-size:14px; font-variant-nume
 th, td {{ padding:8px 12px; text-align:left; border-bottom:1px solid var(--line); }}
 th {{ font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:500; }}
 td {{ font-family:var(--mono); font-size:13px; }}
-tbody tr:hover td {{ background:rgba(94,231,255,.06); }}
+tbody tr:hover td {{ background:rgba(61,255,122,.06); }}
 ul, ol {{ padding-left:22px; }}
 code {{ font-family:var(--mono); font-size:.9em; color:var(--accent2); }}
 pre {{ background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow:auto; }}
@@ -249,7 +249,7 @@ aside .head button {{ margin-left:auto; border:1px solid var(--line2); backgroun
 .node::before {{ content:""; position:absolute; left:-20px; top:7px; width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:var(--glow); }}
 .node .t {{ font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); display:block; }}
 .node .v {{ color:var(--ink); word-break:break-word; }}
-.hash {{ font-family:var(--mono); font-size:11.5px; color:var(--ink2); background:rgba(139,123,255,.12); border:1px solid var(--line); border-radius:6px; padding:1px 6px; cursor:copy; }}
+.hash {{ font-family:var(--mono); font-size:11.5px; color:var(--ink2); background:rgba(182,255,61,.10); border:1px solid var(--line); border-radius:6px; padding:1px 6px; cursor:copy; }}
 .hash:hover {{ border-color:var(--accent2); }}
 .hash.copied {{ color:var(--ok); border-color:var(--ok); }}
 dl {{ display:grid; grid-template-columns:104px 1fr; gap:6px 10px; margin:0; font-size:13px; }}
