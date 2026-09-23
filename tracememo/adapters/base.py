@@ -39,7 +39,9 @@ def register_adapter(name: str) -> Callable[[Adapter], Adapter]:
 
 def get_adapter(name: str) -> Adapter:
     """Look up an adapter by name, importing the built-in ones first."""
-    import tracememo.adapters.normalized  # noqa: F401  (registers on import)
+    import tracememo.adapters.ardupilot  # noqa: F401  (registers on import)
+    import tracememo.adapters.marvelmind  # noqa: F401
+    import tracememo.adapters.normalized  # noqa: F401
 
     try:
         return ADAPTERS[name]

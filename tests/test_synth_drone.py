@@ -79,6 +79,19 @@ def test_truth_stats_keys(synth_data: DroneSynthData) -> None:
 def test_write_drone(tmp_path: Path, synth_data: DroneSynthData) -> None:
     written = write_drone(synth_data, tmp_path / "out")
     names = sorted(p.name for p in written)
-    assert names == ["beacon.parquet", "nav_target.parquet", "pose.parquet", "truth.json"]
+    assert names == [
+        "beacon.parquet",
+        "flight.bin",
+        "marvelmind.csv",
+        "nav_target.parquet",
+        "pose.parquet",
+        "truth.json",
+    ]
+    assert sorted(p.name for p in write_drone(synth_data, tmp_path / "np", raw_formats=False)) == [
+        "beacon.parquet",
+        "nav_target.parquet",
+        "pose.parquet",
+        "truth.json",
+    ]
     truth = json.loads((tmp_path / "out" / "truth.json").read_text())
     assert truth["n_pose"] == len(synth_data.pose)

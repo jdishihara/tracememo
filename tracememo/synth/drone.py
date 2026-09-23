@@ -236,8 +236,36 @@ def generate_drone(cfg: DroneSynthConfig | None = None) -> DroneSynthData:
     return DroneSynthData(pose=pose, nav_target=nav_target, beacon=beacon, truth=truth)
 
 
-def write_drone(data: DroneSynthData, out_dir: Path) -> list[Path]:
-    """Write the tables as Parquet and the truth as JSON; return the written paths."""
+MARVELMIND_TIME_OFFSET_S = 1000.0  # the synthetic CSV clock starts 1000 s before arming
+
+
+def write_marvelmind_csv(data: DroneSynthData, path: Path, address: int = 12) -> Path:
+    """Write the beacon table as a Marvelmind-style CSV (``Time,Address,X,Y,Z,Quality``)."""
+    b = data.beacon
+    df = pd.DataFrame(
+        {
+            "Time": (b["t_s"] + MARVELMIND_TIME_OFFSET_S).round(3),
+            "Address": address,
+            "X": b["x_m"].round(3),
+            "Y": b["y_m"].round(3),
+            "Z": b["z_m"].round(3),
+            "Quality": b["quality"],
+        }
+    )
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(path, index=False)
+    return path
+
+
+def write_drone(data: DroneSynthData, out_dir: Path, raw_formats: bool = True) -> list[Path]:
+    """Write the normalized tables, the truth JSON and (optionally) raw-format files.
+
+    With ``raw_formats`` an ArduPilot ``flight.bin`` and a Marvelmind ``marvelmind.csv`` are
+    also written so the real-data adapters can be exercised on synthetic data.
+    """
+    from tracememo.synth.dataflash import write_dataflash_bin
+
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
@@ -248,4 +276,7 @@ def write_drone(data: DroneSynthData, out_dir: Path) -> list[Path]:
     truth_path = out_dir / "truth.json"
     truth_path.write_text(json.dumps(data.truth, indent=2), encoding="utf-8")
     written.append(truth_path)
+    if raw_formats:
+        written.append(write_dataflash_bin(data, out_dir / "flight.bin"))
+        written.append(write_marvelmind_csv(data, out_dir / "marvelmind.csv"))
     return written

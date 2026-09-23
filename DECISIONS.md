@@ -74,3 +74,20 @@ Choices made where `SPEC.md` was ambiguous or silent. Newest at the bottom.
     warning, not an error.
 20. **`build` runs the checker last** and exits 1 if it fails (`check.run_in_build: false`
     disables this).
+21. **ArduPilot mapping is a config profile.** The built-in `arducopter4` profile maps `XKF1`
+    (EKF core 0) to `pose`, `PSCN`/`PSCE`/`PSCD` targets to `nav_target` (joined by nearest
+    timestamp) and `BCN` to `beacon`, converting NED to ENU. Any part can be overridden under
+    `options.mapping`. Arming time comes from `EV` id 10 by default, with a fallback to the
+    first timestamp. The user validates the profile on their own logs; field names in real
+    firmware may differ and are meant to be adjusted in `project.yaml`, not in code.
+22. **The synthetic generator also writes an ArduPilot-format `.bin` and a Marvelmind-style
+    CSV**, so both real-data adapters are tested end to end without any real data. The `.bin`
+    writer emits `FMT` records and ArduCopter 4.x-like message layouts, plus a second EKF
+    core and pre-arm samples to exercise instance filtering and time normalization. Small
+    fixture files generated this way are committed under `tests/fixtures/`.
+23. **Marvelmind adapter emits `beacon_raw` by default**; `options.table: beacon` feeds the
+    drone analyses directly. Time alignment to the flight log is a user-supplied
+    `time_offset_s` (or `time_origin: first`); the adapter does not try to auto-align clocks.
+24. **`drone.loc_err` still requires a `beacon` table.** For logs without beacons, set
+    `reference: nav_target` and supply `beacon` from the `BCN` mapping or a dummy source; a
+    proper optional-input mechanism is deferred until a real case needs it.

@@ -58,6 +58,12 @@
   ],
   "n_pose": 1200,
   "n_beacon": 585,
+  "trajectory": {
+    "duration_s": 119.9,
+    "planned_length_m": 58.97474924738956,
+    "actual_length_m": 88.70612577680315,
+    "max_altitude_m": 1.647479292551975
+  },
   "loc_err": {
     "nav_target": {
       "n_samples": 1200,

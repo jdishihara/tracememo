@@ -13,6 +13,7 @@ dependencies = [
     "typer>=0.12",
     "pydantic>=2.6",
     "pyyaml>=6",
+    "pymavlink>=2.4",
 ]
 
 [project.optional-dependencies]

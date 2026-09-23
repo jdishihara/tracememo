@@ -4,8 +4,8 @@ data/*
 !data/synthetic/**
 
 # Build outputs
-build/
-examples/*/build/
+build*/
+examples/*/build*/
 *.pyc
 __pycache__/
 .pytest_cache/

@@ -22,5 +22,7 @@ jobs:
         run: |
           tracememo synth drone --out data/synthetic/drone --seed 0
           tracememo build --config examples/drone_memo/project.yaml
+          tracememo build --config examples/drone_memo/project_raw.yaml
           test -s examples/drone_memo/build/report.md
+          test -s examples/drone_memo/build_raw/report.md
           test -s examples/drone_memo/build/values.tex

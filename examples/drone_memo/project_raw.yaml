@@ -1,0 +1,37 @@
+# Same memo as project.yaml, but ingested through the real-data adapters from the
+# synthetic ArduPilot .bin log and Marvelmind CSV. Swap the paths for your own files.
+name: drone_memo_raw
+build_dir: build_raw
+
+inputs:
+  - adapter: ardupilot
+    path: ../../data/synthetic/drone/flight.bin
+    tables: [pose, nav_target]
+    options:
+      profile: arducopter4        # message-to-table mapping; override parts under `mapping:`
+      arming: {message: EV, field: Id, value: 10}
+      drop_before_arming: true
+  - adapter: marvelmind
+    path: ../../data/synthetic/drone/marvelmind.csv
+    options:
+      table: beacon
+      columns: {time: Time, x: X, y: Y, z: Z, quality: Quality, address: Address}
+      address: 12
+      length_unit: m
+      time_unit: s
+      time_offset_s: -1000.0      # align the Marvelmind clock to arming
+
+analyses:
+  - id: drone.loc_err
+    params: {reference: beacon}
+  - id: drone.trajectory
+  - id: drone.failures
+
+report:
+  markdown_template: report.md.j2
+  latex_template: report.tex
+  formats: [markdown, latex]
+  compile_pdf: true
+
+llm:
+  model: claude-sonnet-5
