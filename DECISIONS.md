@@ -110,3 +110,21 @@ Choices made where `SPEC.md` was ambiguous or silent. Newest at the bottom.
     function. Hashing only the function missed edits to helpers (found when a figure-helper
     change was reported as a cache hit). Any edit to the module reruns all analyses defined in
     it, which is the safe direction.
+32. **One LLM interface, two implementations.** `tracememo.llm.LLMClient` has `complete`
+    (text) and `complete_json` (structured output via `output_config.format`). `AnthropicLLM`
+    wraps the official SDK; `FakeLLM` replays canned responses. The CLI switches to the fake
+    when `TRACEMEMO_FAKE_LLM` names a JSON file of responses, so end-to-end tests and dry
+    runs never hit the API. The model name is only ever read from `llm.model`.
+33. **Drafts are retried once on checker errors.** After drafting, the deterministic checks
+    (raw numbers, unknown ids, comparisons) run on the placeholder text; if any error is
+    found, the findings are sent back once (`draft.max_fix_rounds`) asking for a corrected
+    section. The draft is saved either way, with the findings printed, so the author sees
+    exactly what the checker still objects to.
+34. **Two files per draft.** The canonical fragment keeps `{{val:id}}` placeholders
+    (`<section>.draft.md`); a converted copy in the configured syntax (`.md.j2` Jinja or
+    `.tex`) is what the report template includes. Both are checkable.
+35. **Claim check scope.** Sentences with at least one value reference and a claim word that
+    check 4 did not already verify are sent to the model in one call per file, with every
+    placeholder expanded to `[id = value unit]`. Verdicts other than "supported" become
+    warnings; the check never changes the exit code. It is off by default (`check.llm_claims`,
+    or `tracememo check --llm`) because it costs API calls.

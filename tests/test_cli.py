@@ -4,6 +4,7 @@ import json
 import re
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
 from tracememo.cli import app
@@ -125,3 +126,42 @@ def test_build_fails_when_data_changed_underneath(project_dir: Path, synth_dir: 
     finally:
         beacon_file.write_bytes(original)
         runner.invoke(app, ["build", "--config", str(cfg)])
+
+
+def test_draft_and_llm_check_with_fake(
+    project_dir: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from tracememo.llm import FAKE_ENV
+
+    cfg = project_dir / "project.yaml"
+    assert runner.invoke(app, ["build", "--config", str(cfg)]).exit_code == 0
+    draft_text = (
+        "## Results\n\nThe mean error was {{val:drone.loc_err.mean_cm}} and the median "
+        "{{val:drone.loc_err.median_cm}} was lower than the mean {{val:drone.loc_err.mean_cm}}. "
+        "Most samples were within {{val:drone.loc_err.threshold_cm}} "
+        "({{val:drone.loc_err.pct_under_10cm}}).\n"
+    )
+    draft_responses = tmp_path / "draft.json"
+    draft_responses.write_text(json.dumps([draft_text]))
+    claim_responses = tmp_path / "claims.json"
+    verdict = {"results": [{"index": 0, "verdict": "supported", "reason": "ok"}]}
+    # One claim-check call per checked file: the two report templates plus the fragment.
+    claim_responses.write_text(json.dumps([json.dumps(verdict)] * 3))
+    monkeypatch.setenv(FAKE_ENV, str(draft_responses))
+    outline = tmp_path / "outline.md"
+    outline.write_text("- error statistics\n")
+    res = runner.invoke(
+        app, ["draft", "--section", "results", "--outline", str(outline), "--config", str(cfg)]
+    )
+    assert res.exit_code == 0, res.output
+    assert "draft   results: clean" in res.output
+    frag = project_dir / "drafts" / "results.md.j2"
+    assert frag.exists()
+    assert '{{ val("drone.loc_err.mean_cm", with_unit=True) }}' in frag.read_text()
+    assert (project_dir / "drafts" / "results.draft.md").read_text().count("{{val:") == 5
+
+    # The fragment passes the deterministic check and the LLM claim check.
+    monkeypatch.setenv(FAKE_ENV, str(claim_responses))
+    res = runner.invoke(app, ["check", "--config", str(cfg), "--llm", str(frag)])
+    assert res.exit_code == 0, res.output
+    assert "check PASSED" in res.output

@@ -42,12 +42,22 @@ class CheckConfig(BaseModel):
     run_in_build: bool = True
     files: list[str] = Field(default_factory=list)  # extra templates/fragments to check
     allow_patterns: list[str] = Field(default_factory=list)  # extra regexes for raw numbers
+    llm_claims: bool = False  # also run the LLM-assisted claim check (costs API calls)
 
 
 class LLMConfig(BaseModel):
     """LLM settings. The model name is never hard-coded elsewhere."""
 
     model: str = "claude-sonnet-5"
+    max_tokens: int = 4096
+
+
+class DraftConfig(BaseModel):
+    """Where drafted section fragments are written."""
+
+    out_dir: str = "drafts"
+    syntax: Literal["markdown", "latex", "placeholder"] = "markdown"
+    max_fix_rounds: int = 1
 
 
 class ProjectConfig(BaseModel):
@@ -59,6 +69,7 @@ class ProjectConfig(BaseModel):
     analyses: list[AnalysisConfig] = Field(default_factory=list)
     report: ReportConfig = Field(default_factory=ReportConfig)
     check: CheckConfig = Field(default_factory=CheckConfig)
+    draft: DraftConfig = Field(default_factory=DraftConfig)
     llm: LLMConfig = Field(default_factory=LLMConfig)
     config_dir: Path = Field(default=Path("."), exclude=True)
 

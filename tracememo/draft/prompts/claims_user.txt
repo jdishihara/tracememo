@@ -1,0 +1,3 @@
+Check the following claims. Answer with a JSON object {{"results": [{{"index": <int>, "verdict": "supported" | "unsupported" | "cant_tell", "reason": <string>}}, ...]}} with exactly one entry per claim, in order.
+
+{claims}

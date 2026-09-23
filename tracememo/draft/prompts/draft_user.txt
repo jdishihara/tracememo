@@ -1,0 +1,15 @@
+Draft the "{section}" section of the report.
+
+OUTLINE (written by the author; follow its structure and intent):
+{outline}
+
+AVAILABLE VALUES (id | value | unit | description):
+{values}
+
+AVAILABLE FIGURES (id | caption):
+{figures}
+
+AVAILABLE TABLES (id | caption):
+{tables}
+
+Remember: no digits anywhere; every quantity is a {{{{val:id}}}} placeholder; only listed ids.

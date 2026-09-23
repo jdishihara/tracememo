@@ -1,0 +1,8 @@
+Your draft violated the placeholder rules. The automated checker reported:
+
+{findings}
+
+Rewrite the complete section so that every one of these problems is fixed: replace every raw number with the matching {{{{val:id}}}} placeholder (or remove the quantity if no value exists), use only ids from the lists, and correct any comparison whose direction the values do not support. Output only the corrected section text.
+
+Previous draft:
+{draft}

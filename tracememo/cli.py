@@ -113,15 +113,25 @@ def check_files(cfg: ProjectConfig, extra: list[Path] | None = None) -> list[Pat
     return [f for f in files if f.exists()]
 
 
-def run_check(cfg: ProjectConfig, extra: list[Path] | None = None) -> bool:
-    """Run the deterministic checks, print the report, write ``build/check_report.json``."""
+def run_check(cfg: ProjectConfig, extra: list[Path] | None = None, llm: bool | None = None) -> bool:
+    """Run the checks, print the report, write ``build/check_report.json``.
+
+    ``llm`` adds the LLM-assisted claim check (default: ``check.llm_claims`` from config).
+    """
     from tracememo.check.numbers import run_checks
     from tracememo.store.store import ValueStore
 
     if not cfg.manifest_path.exists():
         raise typer.BadParameter("no build/manifest.json found; run `tracememo build` first")
     manifest = ValueStore.load(cfg.manifest_path).to_manifest()
-    report = run_checks(check_files(cfg, extra), manifest, cfg.check.allow_patterns)
+    files = check_files(cfg, extra)
+    report = run_checks(files, manifest, cfg.check.allow_patterns)
+    if cfg.check.llm_claims if llm is None else llm:
+        from tracememo.check.claims import check_claims
+        from tracememo.llm import make_client
+
+        report.findings += check_claims(files, manifest, make_client(cfg.llm))
+        report.findings.sort(key=lambda x: (x.file, x.line, x.check))
     out = cfg.build_path / "check_report.json"
     out.write_text(report.model_dump_json(indent=2), encoding="utf-8")
     _echo(report.summary())
@@ -167,10 +177,53 @@ def check(
     files: Annotated[
         list[Path] | None, typer.Argument(help="Extra templates or draft fragments to check")
     ] = None,
+    llm: Annotated[
+        bool, typer.Option("--llm/--no-llm", help="Also run the LLM-assisted claim check")
+    ] = False,
 ) -> None:
     """Run the grounding checks on the report templates. Exits 1 on any error."""
-    if not run_check(load_config(config), files):
+    if not run_check(load_config(config), files, llm=llm or None):
         raise typer.Exit(code=1)
+
+
+@app.command()
+def draft(
+    section: Annotated[str, typer.Option("--section", help="Section name, e.g. results")],
+    outline: Annotated[Path, typer.Option("--outline", help="Outline file written by you")],
+    config: ConfigOpt = Path("project.yaml"),
+    out: Annotated[Path | None, typer.Option("--out", help="Output fragment path")] = None,
+    syntax: Annotated[
+        str | None, typer.Option("--syntax", help="markdown | latex | placeholder")
+    ] = None,
+) -> None:
+    """Draft a section with the LLM as a live template fragment (placeholders, no digits)."""
+    from tracememo.draft.drafter import convert_placeholders, draft_section
+    from tracememo.llm import make_client
+    from tracememo.store.store import ValueStore
+
+    cfg = load_config(config)
+    if not cfg.manifest_path.exists():
+        raise typer.BadParameter("no build/manifest.json found; run `tracememo build` first")
+    store = ValueStore.load(cfg.manifest_path)
+    syntax = syntax or cfg.draft.syntax
+    ext = {"markdown": ".md.j2", "latex": ".tex", "placeholder": ".md"}[syntax]
+    out_path = out or cfg.resolve(cfg.draft.out_dir) / f"{section}{ext}"
+    result = draft_section(
+        make_client(cfg.llm),
+        store,
+        section,
+        outline.read_text(encoding="utf-8"),
+        max_fix_rounds=cfg.draft.max_fix_rounds,
+    )
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(convert_placeholders(result.text, syntax), encoding="utf-8")
+    raw_path = out_path.with_name(f"{section}.draft.md")
+    raw_path.write_text(result.text, encoding="utf-8")
+    for f in result.findings:
+        _echo(f.format())
+    state = "clean" if result.clean else "has checker errors (see above)"
+    _echo(f"draft   {section}: {state} after {result.attempts} attempt(s)")
+    _echo(f"wrote {out_path} (placeholder form: {raw_path})")
 
 
 @app.command()
