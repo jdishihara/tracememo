@@ -1,0 +1,22 @@
+% tracememo.sty -- live values for LaTeX reports. Generated files: values.tex, tables_out/*.tex.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tracememo}[2026/09/23 tracememo live values]
+\RequirePackage{graphicx}
+\RequirePackage{booktabs}
+
+% \tmdef{name}{body}: define a lookup entry (used by values.tex).
+\newcommand{\tmdef}[2]{\expandafter\gdef\csname tm@#1\endcsname{#2}}
+% \tmget{name}{id}: expand an entry or raise a package error naming the id.
+\newcommand{\tmget}[2]{%
+  \ifcsname tm@#1@#2\endcsname
+    \csname tm@#1@#2\endcsname
+  \else
+    \PackageError{tracememo}{Unknown #1 id '#2'}{Run `tracememo build` and check the id.}%
+  \fi}
+
+\newcommand{\val}[1]{\tmget{val}{#1}}      % formatted value
+\newcommand{\valu}[1]{\tmget{valu}{#1}}    % formatted value with unit
+\newcommand{\fig}[1]{\tmget{fig}{#1}}      % figure environment with caption and label fig:<id>
+\newcommand{\tab}[1]{\tmget{tab}{#1}}      % table environment with caption and label tab:<id>
+
+\InputIfFileExists{values.tex}{}{\PackageError{tracememo}{values.tex not found}{Run `tracememo build`.}}

@@ -1,0 +1,49 @@
+% Minimal tech-memo style document. Swap for your own class/template; only
+% \usepackage{tracememo} and the \val/\valu/\fig/\tab macros are required.
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{tracememo}
+
+\title{Indoor Localization Performance of a Small Quadrotor with Ultrasonic Beacons}
+\author{Technical Memorandum}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We evaluate the position-estimation accuracy of a small quadrotor flying a square pattern
+in an indoor test volume over a \valu{drone.trajectory.duration_s} flight. Over
+\val{drone.loc_err.n_samples} aligned samples, the mean horizontal error relative to the
+\val{drone.loc_err.reference} position was \valu{drone.loc_err.mean_cm} (median
+\valu{drone.loc_err.median_cm}, 95th percentile \valu{drone.loc_err.p95_cm}), and
+\valu{drone.loc_err.pct_under_10cm} of samples fell within 10\,cm. The beacon system produced
+\val{drone.failures.n_events} failure events, with \valu{drone.failures.availability_pct}
+availability.
+\end{abstract}
+
+\section{Flight}
+The vehicle flew a planned path of \valu{drone.trajectory.planned_length_m}; the estimated
+flown path length was \valu{drone.trajectory.actual_length_m} and the maximum altitude
+\valu{drone.trajectory.max_altitude_m}. Figure~\ref{fig:drone.trajectory.top_down} shows the
+planned and estimated trajectories.
+
+\fig{drone.trajectory.top_down}
+\fig{drone.trajectory.altitude}
+
+\section{Localization error}
+The horizontal RMSE was \valu{drone.loc_err.rmse_cm} and the 3D RMSE was
+\valu{drone.loc_err.rmse_3d_cm}. The largest horizontal excursion, \valu{drone.loc_err.max_cm},
+coincides with a beacon position jump (Table~\ref{tab:drone.failures.events}).
+
+\fig{drone.loc_err.error_vs_time}
+\fig{drone.loc_err.error_cdf}
+
+\section{Beacon failures}
+We detected \val{drone.failures.n_dropouts} dropouts totalling
+\valu{drone.failures.dropout_total_s}, \val{drone.failures.n_jumps} position jumps and
+\val{drone.failures.n_drifts} drift episodes.
+
+\tab{drone.failures.events}
+
+\end{document}

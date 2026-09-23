@@ -1,0 +1,8 @@
+# {{ title | default("Report") }}
+
+This is the default tracememo Markdown template. Copy it next to your `project.yaml`
+and edit it; every number should be written as `{{ '{{ val("some.id") }}' }}`.
+
+{% for id in values | default([]) %}
+- `{{ id }}` = {{ val(id, with_unit=True) }}
+{% endfor %}

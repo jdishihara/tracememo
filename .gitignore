@@ -1,0 +1,16 @@
+# Data: never commit real data. Synthetic data is allowed.
+data/*
+!data/synthetic/
+!data/synthetic/**
+
+# Build outputs
+build/
+examples/*/build/
+*.pyc
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.egg-info/
+dist/
+.DS_Store

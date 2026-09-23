@@ -1,0 +1,93 @@
+{
+  "config": {
+    "seed": 0,
+    "duration_s": 120.0,
+    "rate_hz": 10.0,
+    "beacon_every": 2,
+    "beacon_jitter_s": 0.005,
+    "side_m": 4.0,
+    "altitude_m": 1.5,
+    "takeoff_s": 5.0,
+    "speed_mps": 0.5,
+    "lag_tau_s": 0.8,
+    "est_noise_xy_m": 0.03,
+    "est_noise_z_m": 0.02,
+    "beacon_noise_xy_m": 0.02,
+    "beacon_noise_z_m": 0.03,
+    "threshold_cm": 10.0,
+    "events": [
+      {
+        "type": "dropout",
+        "start_s": 39.6,
+        "duration_s": 3.0,
+        "magnitude_m": 0.0
+      },
+      {
+        "type": "jump",
+        "start_s": 69.6,
+        "duration_s": 4.0,
+        "magnitude_m": 0.5
+      },
+      {
+        "type": "drift",
+        "start_s": 90.0,
+        "duration_s": 15.0,
+        "magnitude_m": 0.3
+      }
+    ]
+  },
+  "events": [
+    {
+      "type": "dropout",
+      "start_s": 39.6,
+      "duration_s": 3.0,
+      "magnitude_m": 0.0
+    },
+    {
+      "type": "jump",
+      "start_s": 69.6,
+      "duration_s": 4.0,
+      "magnitude_m": 0.5
+    },
+    {
+      "type": "drift",
+      "start_s": 90.0,
+      "duration_s": 15.0,
+      "magnitude_m": 0.3
+    }
+  ],
+  "n_pose": 1200,
+  "n_beacon": 585,
+  "loc_err": {
+    "nav_target": {
+      "n_samples": 1200,
+      "mean_cm": 31.774574414838703,
+      "median_cm": 33.383312158913746,
+      "p95_cm": 39.14849637676118,
+      "max_cm": 46.284839809713255,
+      "rmse_cm": 32.61146266133052,
+      "pct_under_10cm": 4.416666666666667,
+      "mean_3d_cm": 32.48676990860723,
+      "median_3d_cm": 33.49937473586979,
+      "p95_3d_cm": 39.19718830238548,
+      "max_3d_cm": 46.29476759439624,
+      "rmse_3d_cm": 32.91843382455789,
+      "pct_under_10cm_3d": 0.3333333333333333
+    },
+    "beacon": {
+      "n_samples": 585,
+      "mean_cm": 7.290018668815369,
+      "median_cm": 4.587045110738561,
+      "p95_cm": 25.57668907718357,
+      "max_cm": 54.394384996274326,
+      "rmse_cm": 11.959317688905184,
+      "pct_under_10cm": 87.52136752136752,
+      "mean_3d_cm": 8.513638500243324,
+      "median_3d_cm": 6.006444545715542,
+      "p95_3d_cm": 26.116838946889033,
+      "max_3d_cm": 54.46343223805172,
+      "rmse_3d_cm": 12.5501447699165,
+      "pct_under_10cm_3d": 83.76068376068376
+    }
+  }
+}

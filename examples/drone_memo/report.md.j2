@@ -1,0 +1,53 @@
+# Indoor Localization Performance of a Small Quadrotor with Ultrasonic Beacons
+
+## Abstract
+
+We evaluate the position-estimation accuracy of a small quadrotor flying a square pattern
+in an indoor test volume over a {{ val("drone.trajectory.duration_s", with_unit=True) }} flight.
+Over {{ val("drone.loc_err.n_samples") }} aligned samples, the mean horizontal error relative
+to the {{ val("drone.loc_err.reference") }} position was
+{{ val("drone.loc_err.mean_cm", with_unit=True) }}
+(median {{ val("drone.loc_err.median_cm", with_unit=True) }},
+95th percentile {{ val("drone.loc_err.p95_cm", with_unit=True) }}),
+and {{ val("drone.loc_err.pct_under_10cm") }}% of samples fell within 10 cm.
+The beacon system produced {{ val("drone.failures.n_events") }} failure events, with
+{{ val("drone.failures.availability_pct", with_unit=True) }} availability.
+
+## Flight
+
+The vehicle flew a planned path of {{ val("drone.trajectory.planned_length_m", with_unit=True) }};
+the estimated flown path length was {{ val("drone.trajectory.actual_length_m", with_unit=True) }}
+and the maximum altitude {{ val("drone.trajectory.max_altitude_m", with_unit=True) }}.
+
+{{ fig("drone.trajectory.top_down") }}
+
+{{ fig("drone.trajectory.altitude") }}
+
+## Localization error
+
+The horizontal RMSE was {{ val("drone.loc_err.rmse_cm", with_unit=True) }} and the 3D RMSE
+was {{ val("drone.loc_err.rmse_3d_cm", with_unit=True) }}. The largest horizontal excursion,
+{{ val("drone.loc_err.max_cm", with_unit=True) }}, coincides with a beacon position jump
+(see the failure table below).
+
+{{ fig("drone.loc_err.error_vs_time") }}
+
+{{ fig("drone.loc_err.error_cdf") }}
+
+{% if val_raw("drone.loc_err.median_cm") < val_raw("drone.loc_err.mean_cm") %}
+The median is below the mean, indicating a right-skewed error distribution driven by
+a small number of large excursions.
+{% else %}
+The median is at or above the mean, indicating an error distribution without a heavy tail.
+{% endif %}
+
+## Beacon failures
+
+We detected {{ val("drone.failures.n_dropouts") }} dropouts totalling
+{{ val("drone.failures.dropout_total_s", with_unit=True) }},
+{{ val("drone.failures.n_jumps") }} position jumps and
+{{ val("drone.failures.n_drifts") }} drift episodes.
+
+{{ tab("drone.failures.events") }}
+
+{{ provenance_appendix() }}

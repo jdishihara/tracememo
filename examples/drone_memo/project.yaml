@@ -1,0 +1,32 @@
+name: drone_memo
+build_dir: build
+
+inputs:
+  - adapter: normalized
+    path: ../../data/synthetic/drone
+    tables: [pose, nav_target, beacon]
+
+analyses:
+  - id: drone.loc_err
+    params:
+      reference: beacon
+      align_tolerance_s: 0.05
+      threshold_cm: 10.0
+  - id: drone.trajectory
+  - id: drone.failures
+    params:
+      gap_threshold_s: 0.5
+      jump_threshold_m: 0.2
+      drift_threshold_m: 0.1
+      drift_window_s: 2.0
+
+report:
+  markdown_template: report.md.j2
+  latex_template: report.tex
+  formats: [markdown, latex]
+  output_name: report
+  provenance_links: false
+  compile_pdf: true
+
+llm:
+  model: claude-sonnet-5
