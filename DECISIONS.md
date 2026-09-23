@@ -140,3 +140,10 @@ Choices made where `SPEC.md` was ambiguous or silent. Newest at the bottom.
     are matched to stored values within the precision they were written at; a number that
     matches nothing is "unsupported", and comparisons between two matched numbers are
     direction-checked against the stored values.
+39. **The HTML viewer is a standalone file.** `tracememo viewer` renders the Markdown template
+    with a small built-in Markdown-to-HTML converter (no new dependency), embeds figures as
+    data URIs and the manifest as JSON, and opens a provenance panel on click. It covers the
+    Markdown the templates produce, not arbitrary Markdown.
+40. **The README demo is a rendered animation, not a screen recording.** `docs/make_demo_gif.py`
+    runs the real commands and draws their output with Pillow (a matplotlib dependency), so it
+    can be regenerated in CI-like environments without a terminal recorder.

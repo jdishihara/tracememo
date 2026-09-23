@@ -23,7 +23,7 @@ analyses:
 report:
   markdown_template: report.md.j2
   latex_template: report.tex
-  formats: [markdown, latex]
+  formats: [markdown, latex, html]
   output_name: report
   provenance_links: false
   compile_pdf: true

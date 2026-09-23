@@ -87,6 +87,17 @@ def run_render(cfg: ProjectConfig) -> list[Path]:
             )
             outputs.append(out)
             _echo(f"render  markdown -> {out}")
+        elif fmt == "html":
+            from tracememo.report.viewer import render_viewer
+
+            out = render_viewer(
+                store,
+                cfg.resolve(cfg.report.markdown_template),
+                cfg.build_path,
+                cfg.build_path / f"{name}.html",
+            )
+            outputs.append(out)
+            _echo(f"render  html     -> {out} (click a number for its provenance)")
         elif fmt == "latex":
             out = render_latex(store, cfg.resolve(cfg.report.latex_template), cfg.build_path, name)
             outputs.append(out)
@@ -184,6 +195,23 @@ def check(
     """Run the grounding checks on the report templates. Exits 1 on any error."""
     if not run_check(load_config(config), files, llm=llm or None):
         raise typer.Exit(code=1)
+
+
+@app.command()
+def viewer(config: ConfigOpt = Path("project.yaml")) -> None:
+    """Write build/<name>.html: the report with clickable provenance for every number."""
+    from tracememo.report.viewer import render_viewer
+    from tracememo.store.store import ValueStore
+
+    cfg = load_config(config)
+    store = ValueStore.load(cfg.manifest_path)
+    out = render_viewer(
+        store,
+        cfg.resolve(cfg.report.markdown_template),
+        cfg.build_path,
+        cfg.build_path / f"{cfg.report.output_name}.html",
+    )
+    _echo(f"wrote {out}")
 
 
 @app.command()

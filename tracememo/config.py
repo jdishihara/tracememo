@@ -30,7 +30,9 @@ class ReportConfig(BaseModel):
 
     markdown_template: str = "report.md.j2"
     latex_template: str = "report.tex"
-    formats: list[Literal["markdown", "latex"]] = Field(default_factory=lambda: ["markdown"])
+    formats: list[Literal["markdown", "latex", "html"]] = Field(
+        default_factory=lambda: ["markdown"]
+    )
     output_name: str = "report"
     provenance_links: bool = False
     compile_pdf: bool = True  # only if latexmk is installed

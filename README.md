@@ -4,9 +4,45 @@ Turn raw experiment output into the analysis, figures, tables and first-draft pr
 technical report, where **every number in the document is linked to the code and data that
 produced it**. See `SPEC.md` for the full design.
 
-Status: milestone 7 of 8 (drone and LLM/RAG examples, real-data adapters, caching, Markdown
-and LaTeX/PDF output, deterministic grounding checker, LLM drafting and claim checks,
-evaluation scripts).
+![demo](docs/images/demo.gif)
+
+**Live numbers.** A number in the report is never typed as text. It is a reference to a
+computed value: `{{ val("drone.loc_err.mean_cm") }}` in Markdown, `\val{drone.loc_err.mean_cm}`
+in LaTeX. Rerun the pipeline and every number, table and figure updates together.
+
+**Three guarantees.** *Provenance:* every value, figure and table records the input files (by
+content hash), the analysis code (by source hash), the parameters and the git commit that
+produced it. *Consistency:* the document's numbers come only from the value store.
+*Grounding:* LLM-drafted prose is checked, and any number or comparison not backed by the
+store is flagged.
+
+Status: all eight milestones of `SPEC.md` are implemented. Real NASA data never enters the
+repo; everything is demonstrated on synthetic data with known ground truth.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    RAW[("Raw files<br/>ArduPilot .bin, Marvelmind CSV,<br/>Langfuse JSON, eval CSV")] --> AD[Adapters<br/>tracememo.adapters]
+    AD --> TBL[("Normalized Parquet tables<br/>+ input file hashes")]
+    TBL --> AN[Analyses<br/>@analysis, dependency order,<br/>cached by source+params+inputs]
+    AN --> MAN[("build/manifest.json<br/>values · figures · tables<br/>+ provenance")]
+    MAN --> RENDER[Render<br/>Markdown · values.tex/PDF · HTML viewer]
+    MAN --> CHECK[Check<br/>raw numbers · unknown ids ·<br/>staleness · comparisons · LLM claims]
+    MAN --> DRAFT[Draft<br/>LLM writes {{val:id}} placeholders]
+    DRAFT --> TPL[Templates & fragments]
+    TPL --> RENDER
+    TPL --> CHECK
+    SYN[Synthetic generators<br/>drone flight · RAG traces<br/>with truth.json] -.-> RAW
+    SYN -.-> EVAL[eval/ scripts]
+    MAN -.-> EVAL
+```
+
+<p>
+<img src="docs/images/drone.trajectory.top_down.png" width="31%" alt="Planned vs estimated trajectory">
+<img src="docs/images/drone.loc_err.error_vs_time.png" width="34%" alt="Localization error over time">
+<img src="docs/images/llm.latency.stacked.png" width="31%" alt="RAG stage latency per version">
+</p>
 
 ## Quick start
 
@@ -55,17 +91,31 @@ the model whether each remaining quantitative sentence is supported by the cited
 (warnings only). The model name comes from `llm.model` in `project.yaml`; prompts live in
 `tracememo/draft/prompts/`. Set `TRACEMEMO_FAKE_LLM=responses.json` to dry-run without an API key.
 
+`tracememo viewer` (or `formats: [..., html]`) writes a standalone `report.html` where
+clicking any number opens its provenance: analysis, source hash, commit, parameters, input
+tables and raw files with hashes.
+
 `tracememo check` (also run at the end of `build`) flags raw numbers typed into prose,
 references to ids that are not in the manifest, values whose input files or analysis code
 changed since the last run, and two-value comparisons ("A was lower than B") whose direction
 contradicts the stored values. It exits non-zero on any error, for use in CI.
+
+## Extending
+
+See [`docs/extending.md`](docs/extending.md) for how to add an adapter, an analysis or a
+template, [`docs/schemas.md`](docs/schemas.md) for the normalized table schemas, and
+[`DECISIONS.md`](DECISIONS.md) for design choices made where the spec was open.
 
 ## Development
 
 ```
 .venv/bin/ruff check . && .venv/bin/ruff format .
 .venv/bin/pytest
+.venv/bin/python docs/make_demo_gif.py     # regenerate the README animation
 ```
+
+CI (GitHub Actions) runs ruff, pytest, builds all three example projects and runs the
+deterministic evaluations on Python 3.11 and 3.12.
 
 ## Evaluation
 

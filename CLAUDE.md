@@ -22,4 +22,8 @@ and the milestone order. `DECISIONS.md` records choices made where the spec was 
 .venv/bin/tracememo build --config examples/drone_memo/project_raw.yaml   # via real-data adapters
 .venv/bin/tracememo synth rag --out data/synthetic/rag --seed 0
 .venv/bin/tracememo build --config examples/rag_memo/project.yaml
+.venv/bin/python eval/run_all.py                                          # evaluation results
 ```
+
+All milestones in `SPEC.md` are implemented; see `docs/extending.md` before adding adapters
+or analyses.
