@@ -27,6 +27,10 @@ def test_markdown_to_html_basics() -> None:
     )
     assert "<pre><code>raw &lt; code</code></pre>" in out
     assert '<a id="x"></a>' in out and '<img alt="alt" src="img.png">' in out
+    # An inline span on its own line stays inside the paragraph.
+    para = markdown_to_html('was\n<span class="tm-val" data-id="a.b">7.3</span>\n(median).')
+    assert para.count("<p>") == 1
+    assert 'was <span class="tm-val" data-id="a.b">7.3</span> (median).' in para
 
 
 def test_viewer_page(project_dir: Path) -> None:
