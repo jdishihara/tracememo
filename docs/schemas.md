@@ -11,6 +11,6 @@ unless the adapter config says otherwise). Angles are radians; `yaw_rad` is wrap
 | `nav_target` | `t_s, x_m, y_m, z_m` | Commanded / planned position |
 | `beacon` | `t_s, x_m, y_m, z_m, quality` | External positioning (e.g. ultrasonic beacons); `quality` optional, adapter-defined |
 | `beacon_raw` | `t_s, x_m, y_m, z_m, quality` | Marvelmind export via the `marvelmind` adapter (`options.table` renames it, e.g. to `beacon`) |
-| `spans` | `trace_id, span_id, parent_id, name, start, end, duration_ms, metadata` | LLM pipeline spans (milestone 5) |
-| `traces` | `trace_id, version, total_latency_ms, input, output` | LLM traces (milestone 5) |
-| `eval_scores` | `item_id, config, metric_name, score` | Long-format eval results (milestone 5) |
+| `spans` | `trace_id, span_id, parent_id, name, start, end, duration_ms, metadata` | LLM pipeline spans via the `langfuse` adapter; `start`/`end` are UTC timestamps, `metadata` is a JSON string |
+| `traces` | `trace_id, version, total_latency_ms, input, output` | LLM traces via the `langfuse` adapter; `input`/`output` are JSON strings |
+| `eval_scores` | `item_id, config, metric_name, score` | Long-format eval results via the `eval_table` adapter |

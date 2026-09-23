@@ -1,0 +1,188 @@
+{
+  "config": {
+    "seed": 0,
+    "n_traces": 60,
+    "n_items": 40,
+    "versions": [
+      "v1",
+      "v2"
+    ],
+    "stage_median_ms": {
+      "v1": {
+        "embed_query": 40.0,
+        "retrieve": 350.0,
+        "rerank": 600.0,
+        "generate": 1800.0
+      },
+      "v2": {
+        "embed_query": 40.0,
+        "retrieve": 120.0,
+        "rerank": 250.0,
+        "generate": 1750.0
+      }
+    },
+    "stage_sigma": 0.25,
+    "configs": [
+      "baseline",
+      "rerank",
+      "rerank_hyde"
+    ],
+    "metric_means": {
+      "baseline": {
+        "correctness": 0.62,
+        "faithfulness": 0.75,
+        "relevance": 0.7,
+        "retrieval_mrr": 0.55,
+        "entity_precision": 0.68,
+        "entity_recall": 0.52
+      },
+      "rerank": {
+        "correctness": 0.71,
+        "faithfulness": 0.8,
+        "relevance": 0.78,
+        "retrieval_mrr": 0.72,
+        "entity_precision": 0.74,
+        "entity_recall": 0.6
+      },
+      "rerank_hyde": {
+        "correctness": 0.74,
+        "faithfulness": 0.79,
+        "relevance": 0.81,
+        "retrieval_mrr": 0.76,
+        "entity_precision": 0.75,
+        "entity_recall": 0.66
+      }
+    },
+    "score_concentration": 12.0,
+    "start_time": "2026-09-01T00:00:00+00:00"
+  },
+  "n_traces": 120,
+  "n_observations": 600,
+  "latency": {
+    "v1": {
+      "e2e_median_ms": 2880.719,
+      "e2e_p95_ms": 4058.73125,
+      "stages": {
+        "embed_query": {
+          "median_ms": 39.2420412110298,
+          "p95_ms": 57.22734160138375
+        },
+        "retrieve": {
+          "median_ms": 345.63473232327385,
+          "p95_ms": 494.79734699766306
+        },
+        "rerank": {
+          "median_ms": 565.1893286173758,
+          "p95_ms": 865.2569901021085
+        },
+        "generate": {
+          "median_ms": 1848.8416199188687,
+          "p95_ms": 2939.914695827917
+        }
+      }
+    },
+    "v2": {
+      "e2e_median_ms": 2141.7115000000003,
+      "e2e_p95_ms": 3325.6499499999995,
+      "stages": {
+        "embed_query": {
+          "median_ms": 37.78815061181271,
+          "p95_ms": 59.658564882300304
+        },
+        "retrieve": {
+          "median_ms": 119.35398747807149,
+          "p95_ms": 168.94051136670518
+        },
+        "rerank": {
+          "median_ms": 240.76551213235047,
+          "p95_ms": 360.43854008417776
+        },
+        "generate": {
+          "median_ms": 1740.9306556681468,
+          "p95_ms": 2908.0231440257544
+        }
+      }
+    },
+    "reduction_pct": 25.653578151843327
+  },
+  "eval": {
+    "baseline": {
+      "correctness": {
+        "sample_mean": 0.6356429240552162,
+        "true_mean": 0.62
+      },
+      "faithfulness": {
+        "sample_mean": 0.7712182783798933,
+        "true_mean": 0.75
+      },
+      "relevance": {
+        "sample_mean": 0.7031730725210551,
+        "true_mean": 0.7
+      },
+      "retrieval_mrr": {
+        "sample_mean": 0.5228797525821622,
+        "true_mean": 0.55
+      },
+      "entity_precision": {
+        "sample_mean": 0.7286343756902812,
+        "true_mean": 0.68
+      },
+      "entity_recall": {
+        "sample_mean": 0.5337493875461645,
+        "true_mean": 0.52
+      }
+    },
+    "rerank": {
+      "correctness": {
+        "sample_mean": 0.7272026832468615,
+        "true_mean": 0.71
+      },
+      "faithfulness": {
+        "sample_mean": 0.7808309936644553,
+        "true_mean": 0.8
+      },
+      "relevance": {
+        "sample_mean": 0.824675904258083,
+        "true_mean": 0.78
+      },
+      "retrieval_mrr": {
+        "sample_mean": 0.7628687658996947,
+        "true_mean": 0.72
+      },
+      "entity_precision": {
+        "sample_mean": 0.7450077244900586,
+        "true_mean": 0.74
+      },
+      "entity_recall": {
+        "sample_mean": 0.6160402351659116,
+        "true_mean": 0.6
+      }
+    },
+    "rerank_hyde": {
+      "correctness": {
+        "sample_mean": 0.7288830629278248,
+        "true_mean": 0.74
+      },
+      "faithfulness": {
+        "sample_mean": 0.7922241545757279,
+        "true_mean": 0.79
+      },
+      "relevance": {
+        "sample_mean": 0.8107699423772925,
+        "true_mean": 0.81
+      },
+      "retrieval_mrr": {
+        "sample_mean": 0.7694848680831623,
+        "true_mean": 0.76
+      },
+      "entity_precision": {
+        "sample_mean": 0.757511263666685,
+        "true_mean": 0.75
+      },
+      "entity_recall": {
+        "sample_mean": 0.6372484671715187,
+        "true_mean": 0.66
+      }
+    }
+  }
+}

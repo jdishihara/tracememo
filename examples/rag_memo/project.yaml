@@ -1,0 +1,32 @@
+name: rag_memo
+build_dir: build
+
+inputs:
+  - adapter: langfuse
+    path: ../../data/synthetic/rag/traces.json
+    options:
+      version_from: version        # or "metadata.version" or "tag:version:"
+  - adapter: eval_table
+    path: ../../data/synthetic/rag/eval_scores.csv
+    options:
+      format: long
+
+analyses:
+  - id: llm.latency
+    params:
+      baseline: v1
+      candidate: v2
+  - id: llm.eval
+    params:
+      n_bootstrap: 2000
+      ci: 0.95
+      seed: 0
+
+report:
+  markdown_template: report.md.j2
+  latex_template: report.tex
+  formats: [markdown, latex]
+  compile_pdf: true
+
+llm:
+  model: claude-sonnet-5

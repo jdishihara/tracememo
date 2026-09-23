@@ -210,5 +210,21 @@ def synth_drone(
         _echo(f"wrote {p}")
 
 
+@synth_app.command("rag")
+def synth_rag(
+    out: Annotated[Path, typer.Option("--out", help="Output directory")] = Path(
+        "data/synthetic/rag"
+    ),
+    seed: Annotated[int, typer.Option("--seed")] = 0,
+    n_traces: Annotated[int, typer.Option("--n-traces", help="Traces per version")] = 60,
+) -> None:
+    """Generate synthetic RAG traces (Langfuse-style JSON) and eval scores (CSV) + truth.json."""
+    from tracememo.synth.rag import RagSynthConfig, generate_rag, write_rag
+
+    data = generate_rag(RagSynthConfig(seed=seed, n_traces=n_traces))
+    for p in write_rag(data, out):
+        _echo(f"wrote {p}")
+
+
 if __name__ == "__main__":
     app()

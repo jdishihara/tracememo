@@ -4,8 +4,8 @@ Turn raw experiment output into the analysis, figures, tables and first-draft pr
 technical report, where **every number in the document is linked to the code and data that
 produced it**. See `SPEC.md` for the full design.
 
-Status: milestone 4 of 8 (drone pipeline, caching, Markdown and LaTeX/PDF output, the
-deterministic grounding checker, and ArduPilot / Marvelmind adapters).
+Status: milestone 5 of 8 (drone and LLM/RAG examples, real-data adapters, caching, Markdown
+and LaTeX/PDF output, deterministic grounding checker).
 
 ## Quick start
 
@@ -27,6 +27,16 @@ Re-running `build` reruns only analyses whose code, parameters or input data cha
 Marvelmind CSV (synthetic ones are generated alongside the Parquet tables), using the
 `ardupilot` and `marvelmind` adapters. The message-to-table mapping is configuration; see the
 docstrings in `tracememo/adapters/ardupilot.py` and `marvelmind.py` and `docs/schemas.md`.
+
+The second example, `examples/rag_memo`, covers an LLM pipeline: Langfuse-style trace exports
+and per-item evaluation scores go through the `langfuse` and `eval_table` adapters, and the
+`llm.latency` and `llm.eval` analyses produce stage/end-to-end latency per version and
+bootstrap confidence intervals per metric and configuration:
+
+```
+.venv/bin/tracememo synth rag --out data/synthetic/rag --seed 0
+.venv/bin/tracememo build --config examples/rag_memo/project.yaml
+```
 
 `tracememo check` (also run at the end of `build`) flags raw numbers typed into prose,
 references to ids that are not in the manifest, values whose input files or analysis code

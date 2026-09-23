@@ -1,0 +1,47 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{tracememo}
+
+\title{Latency and Answer Quality of a Retrieval-Augmented Question-Answering Platform}
+\author{Technical Memorandum}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We compare two versions of a retrieval-augmented generation (RAG) pipeline on latency and
+evaluate several retrieval configurations on answer quality. Over \val{llm.latency.v1.n_traces}
+and \val{llm.latency.v2.n_traces} traces, the median end-to-end latency fell from
+\valu{llm.latency.v1.e2e_median_ms} in \val{llm.latency.baseline_version} to
+\valu{llm.latency.v2.e2e_median_ms} in \val{llm.latency.candidate_version}, a
+\valu{llm.latency.reduction_pct} reduction. On the evaluation set, the best configuration
+reached a mean correctness of \val{llm.eval.rerank_hyde.correctness.mean}
+(\val{llm.eval.rerank_hyde.correctness.ci_low} to \val{llm.eval.rerank_hyde.correctness.ci_high},
+bootstrap CI) versus \val{llm.eval.baseline.correctness.mean} for the baseline.
+\end{abstract}
+
+\section{Latency}
+The retrieval stage median dropped from \valu{llm.latency.v1.retrieve.median_ms} to
+\valu{llm.latency.v2.retrieve.median_ms}, and reranking from
+\valu{llm.latency.v1.rerank.median_ms} to \valu{llm.latency.v2.rerank.median_ms}. Generation was
+essentially unchanged (\valu{llm.latency.v1.generate.median_ms} versus
+\valu{llm.latency.v2.generate.median_ms}) and remains the dominant cost
+(Figure~\ref{fig:llm.latency.stacked}, Table~\ref{tab:llm.latency.by_stage}). The p95
+end-to-end latency of \valu{llm.latency.v2.e2e_p95_ms} in \val{llm.latency.candidate_version}
+was lower than the \valu{llm.latency.v1.e2e_p95_ms} of the baseline.
+
+\fig{llm.latency.stacked}
+\tab{llm.latency.by_stage}
+
+\section{Answer quality}
+Reranking improved retrieval MRR from \val{llm.eval.baseline.retrieval_mrr.mean} to
+\val{llm.eval.rerank.retrieval_mrr.mean}; adding query expansion (HyDE) raised it further to
+\val{llm.eval.rerank_hyde.retrieval_mrr.mean} (Table~\ref{tab:llm.eval.metrics}). Faithfulness
+was similar across configurations (\val{llm.eval.baseline.faithfulness.mean},
+\val{llm.eval.rerank.faithfulness.mean} and \val{llm.eval.rerank_hyde.faithfulness.mean}).
+
+\tab{llm.eval.metrics}
+\fig{llm.eval.means}
+
+\end{document}

@@ -18,11 +18,14 @@ jobs:
       - run: python -m pip install --upgrade pip && pip install -e ".[dev]"
       - run: ruff check . && ruff format --check .
       - run: pytest -q
-      - name: Build the synthetic drone example
+      - name: Build the synthetic examples
         run: |
           tracememo synth drone --out data/synthetic/drone --seed 0
+          tracememo synth rag --out data/synthetic/rag --seed 0
           tracememo build --config examples/drone_memo/project.yaml
           tracememo build --config examples/drone_memo/project_raw.yaml
+          tracememo build --config examples/rag_memo/project.yaml
           test -s examples/drone_memo/build/report.md
           test -s examples/drone_memo/build_raw/report.md
+          test -s examples/rag_memo/build/report.md
           test -s examples/drone_memo/build/values.tex

@@ -20,4 +20,6 @@ and the milestone order. `DECISIONS.md` records choices made where the spec was 
 .venv/bin/tracememo synth drone --out data/synthetic/drone --seed 0
 .venv/bin/tracememo build --config examples/drone_memo/project.yaml
 .venv/bin/tracememo build --config examples/drone_memo/project_raw.yaml   # via real-data adapters
+.venv/bin/tracememo synth rag --out data/synthetic/rag --seed 0
+.venv/bin/tracememo build --config examples/rag_memo/project.yaml
 ```

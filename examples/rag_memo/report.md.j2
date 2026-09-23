@@ -1,0 +1,48 @@
+# Latency and Answer Quality of a Retrieval-Augmented Question-Answering Platform
+
+## Abstract
+
+We compare two versions of a retrieval-augmented generation (RAG) pipeline on latency and
+evaluate several retrieval configurations on answer quality. Over
+{{ val("llm.latency.v1.n_traces") }} and {{ val("llm.latency.v2.n_traces") }} traces, the median
+end-to-end latency fell from {{ val("llm.latency.v1.e2e_median_ms", with_unit=True) }} in
+{{ val("llm.latency.baseline_version") }} to
+{{ val("llm.latency.v2.e2e_median_ms", with_unit=True) }} in
+{{ val("llm.latency.candidate_version") }}, a
+{{ val("llm.latency.reduction_pct", with_unit=True) }} reduction. On the evaluation set, the
+best configuration reached a mean correctness of
+{{ val("llm.eval.rerank_hyde.correctness.mean") }} (
+{{ val("llm.eval.rerank_hyde.correctness.ci_low") }} to
+{{ val("llm.eval.rerank_hyde.correctness.ci_high") }}, bootstrap CI) versus
+{{ val("llm.eval.baseline.correctness.mean") }} for the baseline.
+
+## Latency
+
+The retrieval stage median dropped from {{ val("llm.latency.v1.retrieve.median_ms", with_unit=True) }}
+to {{ val("llm.latency.v2.retrieve.median_ms", with_unit=True) }}, and reranking from
+{{ val("llm.latency.v1.rerank.median_ms", with_unit=True) }} to
+{{ val("llm.latency.v2.rerank.median_ms", with_unit=True) }}. Generation was essentially
+unchanged ({{ val("llm.latency.v1.generate.median_ms", with_unit=True) }} versus
+{{ val("llm.latency.v2.generate.median_ms", with_unit=True) }}) and remains the dominant cost.
+The p95 end-to-end latency of {{ val("llm.latency.v2.e2e_p95_ms", with_unit=True) }} in
+{{ val("llm.latency.candidate_version") }} was lower than the
+{{ val("llm.latency.v1.e2e_p95_ms", with_unit=True) }} of the baseline.
+
+{{ fig("llm.latency.stacked") }}
+
+{{ tab("llm.latency.by_stage") }}
+
+## Answer quality
+
+{{ tab("llm.eval.metrics") }}
+
+Reranking improved retrieval MRR from {{ val("llm.eval.baseline.retrieval_mrr.mean") }} to
+{{ val("llm.eval.rerank.retrieval_mrr.mean") }}; adding query expansion (HyDE) raised it further
+to {{ val("llm.eval.rerank_hyde.retrieval_mrr.mean") }}. Faithfulness was similar across
+configurations ({{ val("llm.eval.baseline.faithfulness.mean") }},
+{{ val("llm.eval.rerank.faithfulness.mean") }} and
+{{ val("llm.eval.rerank_hyde.faithfulness.mean") }}).
+
+{{ fig("llm.eval.means") }}
+
+{{ provenance_appendix() }}

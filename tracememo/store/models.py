@@ -21,6 +21,12 @@ def validate_id(value: str) -> str:
     return value
 
 
+def slugify(label: str) -> str:
+    """Turn an arbitrary label (config or version name) into one id segment."""
+    out = re.sub(r"[^a-z0-9_]+", "_", str(label).lower()).strip("_")
+    return out or "x"
+
+
 class InputFile(BaseModel):
     """A raw input file and the SHA-256 of its bytes."""
 

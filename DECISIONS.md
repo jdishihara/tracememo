@@ -91,3 +91,22 @@ Choices made where `SPEC.md` was ambiguous or silent. Newest at the bottom.
 24. **`drone.loc_err` still requires a `beacon` table.** For logs without beacons, set
     `reference: nav_target` and supply `beacon` from the `BCN` mapping or a dummy source; a
     proper optional-input mechanism is deferred until a real case needs it.
+25. **Langfuse adapter reads exports; live fetching is a guarded optional path.** The
+    `langfuse` SDK is not in the spec's dependency list, so `fetch: true` imports it lazily
+    and fails with an install hint. The fetch code follows the v2 SDK (`fetch_traces` /
+    `fetch_observations`) and is not covered by tests; exports are the supported path.
+26. **Version labels come from `options.version_from`**: a trace field (`version`, `release`),
+    `metadata.<key>`, or `tag:<prefix>`. Only `SPAN` and `GENERATION` observations become
+    spans by default.
+27. **Stage spans default to leaf spans** (those that are not a parent of another span), so a
+    root "pipeline" span is not counted as a stage. `stage_names` overrides this.
+28. **Version and config names are slugified into value ids** (`rerank+hyde` -> `rerank_hyde`);
+    tables keep the original labels.
+29. **`llm.eval` uses a percentile bootstrap** of the mean with a fixed seed from params, so
+    results are reproducible and cacheable.
+30. **Figure/table captions are soft-escaped for LaTeX** (`% _ & #` unless already escaped),
+    because a bare `%` in a generated caption silently truncated `values.tex`.
+31. **Analysis source hashes cover the whole defining module**, not just the decorated
+    function. Hashing only the function missed edits to helpers (found when a figure-helper
+    change was reported as a cache hit). Any edit to the module reruns all analyses defined in
+    it, which is the safe direction.

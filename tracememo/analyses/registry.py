@@ -14,7 +14,7 @@ from tracememo.store.models import AnalysisResult
 
 AnalysisFn = Callable[..., AnalysisResult]
 
-BUILTIN_MODULES = ["tracememo.analyses.drone"]
+BUILTIN_MODULES = ["tracememo.analyses.drone", "tracememo.analyses.llm"]
 
 
 @dataclass(frozen=True)
@@ -33,11 +33,19 @@ _REGISTRY: dict[str, AnalysisSpec] = {}
 
 
 def source_hash(func: Callable[..., Any]) -> str:
-    """SHA-256 of the function's source text (used for caching and staleness checks)."""
+    """SHA-256 of the source of the module defining ``func`` (used for caching and staleness).
+
+    The whole module is hashed, not just the decorated function, so that edits to helper
+    functions the analysis calls also invalidate cached results.
+    """
+    module = inspect.getmodule(func)
     try:
-        src = inspect.getsource(func)
+        src = inspect.getsource(module) if module is not None else inspect.getsource(func)
     except (OSError, TypeError):
-        src = repr(func)
+        try:
+            src = inspect.getsource(func)
+        except (OSError, TypeError):
+            src = repr(func)
     return sha256_text(src)
 
 

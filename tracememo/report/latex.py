@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -13,6 +14,14 @@ from tracememo.store.store import ValueStore
 
 TEMPLATES_DIR = Path(__file__).parent / "templates"
 STYLE_NAME = "tracememo.sty"
+
+
+_UNESCAPED_SPECIAL = re.compile(r"(?<!\\)([%_&#])")
+
+
+def soft_escape(text: str) -> str:
+    """Escape ``% _ & #`` in caption text unless already escaped, leaving other LaTeX intact."""
+    return _UNESCAPED_SPECIAL.sub(r"\\\1", text)
 
 
 def value_macros(v: Value) -> list[str]:
@@ -38,7 +47,7 @@ def figure_macro(f: Figure, build_dir: Path) -> str:
     body = (
         r"\begin{figure}[htbp]\centering"
         f"\\includegraphics[width=\\linewidth]{{{{{base}}}.{ext}}}"
-        f"\\caption{{{f.caption}}}\\label{{fig:{f.id}}}"
+        f"\\caption{{{soft_escape(f.caption)}}}\\label{{fig:{f.id}}}"
         r"\end{figure}"
     )
     return f"\\tmdef{{fig@{f.id}}}{{{body}}}"
@@ -51,7 +60,7 @@ def table_macro(t: Table, build_dir: Path) -> str:
     rel = Path(os.path.relpath(t.latex_path, build_dir)).as_posix()
     body = (
         r"\begin{table}[htbp]\centering"
-        f"\\caption{{{t.caption}}}\\label{{tab:{t.id}}}"
+        f"\\caption{{{soft_escape(t.caption)}}}\\label{{tab:{t.id}}}"
         f"\\input{{{rel}}}"
         r"\end{table}"
     )
