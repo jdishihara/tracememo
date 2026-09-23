@@ -84,6 +84,13 @@ def localization_error(
             fmt="d",
             description="Number of aligned reference samples",
         ),
+        Value(
+            id=f"{ID}.threshold_cm",
+            value=thr,
+            unit="cm",
+            fmt=".0f",
+            description="Error threshold used for the share-of-samples statistic",
+        ),
     ]
     for suffix, err, label in (("", err_h, "horizontal"), ("_3d", err_3d, "3D")):
         s = error_stats(err, thr)

@@ -56,3 +56,21 @@ Choices made where `SPEC.md` was ambiguous or silent. Newest at the bottom.
     alongside the Parquet, so the report renderers only splice files in.
 15. **`report.markdown_template` / `report.latex_template`** replace the single `template`
     key so both formats can be produced from one config.
+16. **The checker runs on templates, not rendered output.** Markdown/Jinja templates, draft
+    fragments (`{{val:id}}`) and LaTeX documents are parsed with length-preserving masking
+    so findings carry real line numbers. LaTeX text before `\begin{document}` is ignored.
+17. **Raw-number allowlist** (built in): years 1900–2099, numbered cross references
+    (Section/Figure/Table/Eq. N), numeric citations `[3]`, ordinals (`95th`), and any
+    digit run attached to letters (`3D`, `p95`, `x_1`). Numbers inside code spans, headings,
+    Jinja statements/expressions, LaTeX commands and options are not prose. Projects can add
+    regexes via `check.allow_patterns`.
+18. **Staleness findings are grouped** per (analysis, reason) per file, listing the ids,
+    instead of one finding per referenced value.
+19. **Comparison check scope**: sentences with exactly two value references and one phrase
+    from a fixed list (`lower/less/smaller/shorter than`, `below`, `under`;
+    `higher/greater/larger/longer/more than`, `above`, `exceeds`, `over`;
+    `decreased/reduced/dropped/fell ... from A to B`; `increased/rose/grew ... from A to B`).
+    Negated sentences are skipped (left to the LLM claim checker). Different units produce a
+    warning, not an error.
+20. **`build` runs the checker last** and exits 1 if it fails (`check.run_in_build: false`
+    disables this).

@@ -35,7 +35,7 @@ def test_synth_and_build(tmp_path: Path, project_dir: Path, synth_dir: Path) -> 
     assert f"Over {truth['n_samples']} aligned samples" in report
     # Every value in the manifest carries provenance pointing at the raw files.
     manifest = json.loads((build / "manifest.json").read_text())
-    assert len(manifest["values"]) == 24
+    assert len(manifest["values"]) == 25
     assert set(manifest["analyses"]) == {"drone.loc_err", "drone.trajectory", "drone.failures"}
     for v in manifest["values"].values():
         prov = v["provenance"]
@@ -76,3 +76,52 @@ def test_synth_cli(tmp_path: Path) -> None:
     )
     assert res.exit_code == 0, res.output
     assert (tmp_path / "d" / "truth.json").exists()
+
+
+def test_check_passes_on_example_and_fails_on_bad_fragment(
+    project_dir: Path, tmp_path: Path
+) -> None:
+    cfg = project_dir / "project.yaml"
+    assert runner.invoke(app, ["build", "--config", str(cfg)]).exit_code == 0
+    res = runner.invoke(app, ["check", "--config", str(cfg)])
+    assert res.exit_code == 0, res.output
+    assert "check PASSED" in res.output
+    report = json.loads((project_dir / "build" / "check_report.json").read_text())
+    assert report["findings"] == []
+
+    bad = tmp_path / "draft.md"
+    bad.write_text(
+        "The error was 7.3 cm. See {{val:drone.nope}} too. The median "
+        "{{val:drone.loc_err.median_cm}} exceeds the mean {{val:drone.loc_err.mean_cm}}.\n",
+        encoding="utf-8",
+    )
+    res = runner.invoke(app, ["check", "--config", str(cfg), str(bad)])
+    assert res.exit_code == 1
+    assert "[raw_number]" in res.output and "[unknown_reference]" in res.output
+    assert "[comparison]" in res.output
+    report = json.loads((project_dir / "build" / "check_report.json").read_text())
+    assert report["findings"] and str(bad) in report["files"]
+
+
+def test_build_fails_when_data_changed_underneath(project_dir: Path, synth_dir: Path) -> None:
+    """A template referencing values whose input files changed since the run is stale."""
+    import pandas as pd
+
+    cfg = project_dir / "project.yaml"
+    assert runner.invoke(app, ["build", "--config", str(cfg)]).exit_code == 0
+    beacon_file = synth_dir / "beacon.parquet"
+    original = beacon_file.read_bytes()
+    try:
+        df = pd.read_parquet(beacon_file)
+        df["x_m"] += 0.001
+        df.to_parquet(beacon_file, index=False)
+        res = runner.invoke(app, ["check", "--config", str(cfg)])
+        assert res.exit_code == 1 and "[stale]" in res.output
+        # A rebuild reruns the dependent analyses and the check passes again.
+        res = runner.invoke(app, ["build", "--config", str(cfg)])
+        assert res.exit_code == 0, res.output
+        assert "drone.trajectory         cached" in res.output
+        assert "drone.loc_err            ran" in res.output
+    finally:
+        beacon_file.write_bytes(original)
+        runner.invoke(app, ["build", "--config", str(cfg)])

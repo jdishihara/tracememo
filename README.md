@@ -4,8 +4,8 @@ Turn raw experiment output into the analysis, figures, tables and first-draft pr
 technical report, where **every number in the document is linked to the code and data that
 produced it**. See `SPEC.md` for the full design.
 
-Status: milestone 2 of 8 (full drone pipeline: `drone.loc_err`, `drone.trajectory`,
-`drone.failures`, caching, provenance, `explain`, Markdown and LaTeX/PDF output).
+Status: milestone 3 of 8 (drone pipeline, caching, Markdown and LaTeX/PDF output, and the
+deterministic grounding checker).
 
 ## Quick start
 
@@ -22,6 +22,11 @@ and in `report.tex` as `\val{drone.loc_err.mean_cm}` (or `\valu{...}` with unit,
 `\fig{...}`, `\tab{...}`). Both are filled from `build/manifest.json`, which records the
 provenance of every value. If `latexmk` is installed, `build` also produces `report.pdf`.
 Re-running `build` reruns only analyses whose code, parameters or input data changed.
+
+`tracememo check` (also run at the end of `build`) flags raw numbers typed into prose,
+references to ids that are not in the manifest, values whose input files or analysis code
+changed since the last run, and two-value comparisons ("A was lower than B") whose direction
+contradicts the stored values. It exits non-zero on any error, for use in CI.
 
 ## Development
 

@@ -9,7 +9,8 @@ to the {{ val("drone.loc_err.reference") }} position was
 {{ val("drone.loc_err.mean_cm", with_unit=True) }}
 (median {{ val("drone.loc_err.median_cm", with_unit=True) }},
 95th percentile {{ val("drone.loc_err.p95_cm", with_unit=True) }}),
-and {{ val("drone.loc_err.pct_under_10cm") }}% of samples fell within 10 cm.
+and {{ val("drone.loc_err.pct_under_10cm") }}% of samples fell within
+{{ val("drone.loc_err.threshold_cm", with_unit=True) }}.
 The beacon system produced {{ val("drone.failures.n_events") }} failure events, with
 {{ val("drone.failures.availability_pct", with_unit=True) }} availability.
 
@@ -25,8 +26,8 @@ and the maximum altitude {{ val("drone.trajectory.max_altitude_m", with_unit=Tru
 
 ## Localization error
 
-The horizontal RMSE was {{ val("drone.loc_err.rmse_cm", with_unit=True) }} and the 3D RMSE
-was {{ val("drone.loc_err.rmse_3d_cm", with_unit=True) }}. The largest horizontal excursion,
+The horizontal RMSE of {{ val("drone.loc_err.rmse_cm", with_unit=True) }} was lower than the
+3D RMSE of {{ val("drone.loc_err.rmse_3d_cm", with_unit=True) }}. The largest horizontal excursion,
 {{ val("drone.loc_err.max_cm", with_unit=True) }}, coincides with a beacon position jump
 (see the failure table below).
 

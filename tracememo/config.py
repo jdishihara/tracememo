@@ -36,6 +36,14 @@ class ReportConfig(BaseModel):
     compile_pdf: bool = True  # only if latexmk is installed
 
 
+class CheckConfig(BaseModel):
+    """Grounding checker settings."""
+
+    run_in_build: bool = True
+    files: list[str] = Field(default_factory=list)  # extra templates/fragments to check
+    allow_patterns: list[str] = Field(default_factory=list)  # extra regexes for raw numbers
+
+
 class LLMConfig(BaseModel):
     """LLM settings. The model name is never hard-coded elsewhere."""
 
@@ -50,6 +58,7 @@ class ProjectConfig(BaseModel):
     inputs: list[InputConfig] = Field(default_factory=list)
     analyses: list[AnalysisConfig] = Field(default_factory=list)
     report: ReportConfig = Field(default_factory=ReportConfig)
+    check: CheckConfig = Field(default_factory=CheckConfig)
     llm: LLMConfig = Field(default_factory=LLMConfig)
     config_dir: Path = Field(default=Path("."), exclude=True)
 

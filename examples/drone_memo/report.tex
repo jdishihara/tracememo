@@ -17,7 +17,7 @@ in an indoor test volume over a \valu{drone.trajectory.duration_s} flight. Over
 \val{drone.loc_err.n_samples} aligned samples, the mean horizontal error relative to the
 \val{drone.loc_err.reference} position was \valu{drone.loc_err.mean_cm} (median
 \valu{drone.loc_err.median_cm}, 95th percentile \valu{drone.loc_err.p95_cm}), and
-\valu{drone.loc_err.pct_under_10cm} of samples fell within 10\,cm. The beacon system produced
+\valu{drone.loc_err.pct_under_10cm} of samples fell within \valu{drone.loc_err.threshold_cm}. The beacon system produced
 \val{drone.failures.n_events} failure events, with \valu{drone.failures.availability_pct}
 availability.
 \end{abstract}
@@ -32,7 +32,7 @@ planned and estimated trajectories.
 \fig{drone.trajectory.altitude}
 
 \section{Localization error}
-The horizontal RMSE was \valu{drone.loc_err.rmse_cm} and the 3D RMSE was
+The horizontal RMSE of \valu{drone.loc_err.rmse_cm} was lower than the 3D RMSE of
 \valu{drone.loc_err.rmse_3d_cm}. The largest horizontal excursion, \valu{drone.loc_err.max_cm},
 coincides with a beacon position jump (Table~\ref{tab:drone.failures.events}).
 

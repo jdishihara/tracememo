@@ -101,6 +101,34 @@ def run_render(cfg: ProjectConfig) -> list[Path]:
     return outputs
 
 
+def check_files(cfg: ProjectConfig, extra: list[Path] | None = None) -> list[Path]:
+    """Templates to check: configured report templates plus ``check.files`` and ``extra``."""
+    files: list[Path] = []
+    if "markdown" in cfg.report.formats:
+        files.append(cfg.resolve(cfg.report.markdown_template))
+    if "latex" in cfg.report.formats:
+        files.append(cfg.resolve(cfg.report.latex_template))
+    files += [cfg.resolve(f) for f in cfg.check.files]
+    files += [Path(f).resolve() for f in (extra or [])]
+    return [f for f in files if f.exists()]
+
+
+def run_check(cfg: ProjectConfig, extra: list[Path] | None = None) -> bool:
+    """Run the deterministic checks, print the report, write ``build/check_report.json``."""
+    from tracememo.check.numbers import run_checks
+    from tracememo.store.store import ValueStore
+
+    if not cfg.manifest_path.exists():
+        raise typer.BadParameter("no build/manifest.json found; run `tracememo build` first")
+    manifest = ValueStore.load(cfg.manifest_path).to_manifest()
+    report = run_checks(check_files(cfg, extra), manifest, cfg.check.allow_patterns)
+    out = cfg.build_path / "check_report.json"
+    out.write_text(report.model_dump_json(indent=2), encoding="utf-8")
+    _echo(report.summary())
+    _echo(f"wrote {out}")
+    return report.passed
+
+
 # -- commands ----------------------------------------------------------------------
 
 
@@ -124,11 +152,25 @@ def render(config: ConfigOpt = Path("project.yaml")) -> None:
 
 @app.command()
 def build(config: ConfigOpt = Path("project.yaml")) -> None:
-    """ingest + analyze + render."""
+    """ingest + analyze + render + check."""
     cfg = load_config(config)
     run_ingest(cfg)
     run_analyze(cfg)
     run_render(cfg)
+    if cfg.check.run_in_build and not run_check(cfg):
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def check(
+    config: ConfigOpt = Path("project.yaml"),
+    files: Annotated[
+        list[Path] | None, typer.Argument(help="Extra templates or draft fragments to check")
+    ] = None,
+) -> None:
+    """Run the grounding checks on the report templates. Exits 1 on any error."""
+    if not run_check(load_config(config), files):
+        raise typer.Exit(code=1)
 
 
 @app.command()
